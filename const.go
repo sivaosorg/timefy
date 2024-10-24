@@ -293,44 +293,44 @@ var (
 	// TimeFormats is a slice of strings that holds various time format patterns.
 	// These patterns can be used to parse and format time values in different layouts.
 	TimeFormats = []string{
-		"2006",                   // Year only
-		"2006-1",                 // Year and month
-		"2006-1-2",               // Year, month, and day
-		"2006-1-2 15",            // Year, month, day, and hour
-		"2006-1-2 15:4",          // Year, month, day, hour, and minute
-		"2006-1-2 15:4:5",        // Year, month, day, hour, minute, and second
-		"1-2",                    // Month and day
-		"15:4:5",                 // Hour, minute, and second
-		"15:4",                   // Hour and minute
-		"15",                     // Hour only
-		"15:4:5 Jan 2, 2006 MST", // Full date and time with timezone
-		"2006-01-02 15:04:05.999999999 -0700 MST", // Full date and time with nanoseconds and timezone
-		"2006-01-02T15:04:05Z0700",                // ISO 8601 format with timezone offset
-		"2006-01-02T15:04:05Z07",                  // ISO 8601 format with timezone offset (short)
-		"2006.1.2",                                // Year, month, and day with dots
-		"2006.1.2 15:04:05",                       // Year, month, day, and time with dots
-		"2006.01.02",                              // Year, month, and day with leading zeros
-		"2006.01.02 15:04:05",                     // Year, month, day, and time with leading zeros
-		"2006.01.02 15:04:05.999999999",           // Full date and time with nanoseconds and leading zeros
-		"1/2/2006",                                // Month, day, and year with slashes
-		"1/2/2006 15:4:5",                         // Month, day, year, and time with slashes
-		"2006/01/02",                              // Year, month, and day with slashes
-		"20060102",                                // Year, month, and day without separators
-		"2006/01/02 15:04:05",                     // Year, month, day, and time with slashes
-		time.ANSIC,                                // ANSIC format
-		time.UnixDate,                             // Unix date format
-		time.RubyDate,                             // Ruby date format
-		time.RFC822,                               // RFC 822 format
-		time.RFC822Z,                              // RFC 822 format with numeric timezone
-		time.RFC850,                               // RFC 850 format
-		time.RFC1123,                              // RFC 1123 format
-		time.RFC1123Z,                             // RFC 1123 format with numeric timezone
-		time.RFC3339,                              // RFC 3339 format
-		time.RFC3339Nano,                          // RFC 3339 format with nanoseconds
-		time.Kitchen,                              // Kitchen format
-		time.Stamp,                                // Stamp format
-		time.StampMilli,                           // Stamp format with milliseconds
-		time.StampMicro,                           // Stamp format with microseconds
-		time.StampNano,                            // Stamp format with nanoseconds
+		"2006",                   // Year only, e.g., 2023
+		"2006-1",                 // Year and month, e.g., 2023-8
+		"2006-1-2",               // Year, month, and day, e.g., 2023-8-15
+		"2006-1-2 15",            // Year, month, day, and hour, e.g., 2023-8-15 13
+		"2006-1-2 15:4",          // Year, month, day, hour, and minute, e.g., 2023-8-15 13:45
+		"2006-1-2 15:4:5",        // Year, month, day, hour, minute, and second, e.g., 2023-8-15 13:45:30
+		"1-2",                    // Month and day, e.g., 8-15
+		"15:4:5",                 // Hour, minute, and second, e.g., 13:45:30
+		"15:4",                   // Hour and minute, e.g., 13:45
+		"15",                     // Hour only, e.g., 13
+		"15:4:5 Jan 2, 2006 MST", // Full date and time with timezone, e.g., 13:45:30 Aug 15, 2023 MST
+		"2006-01-02 15:04:05.999999999 -0700 MST", // Full date and time with nanoseconds and timezone, e.g., 2023-08-15 13:45:30.123456789 -0700 MST
+		"2006-01-02T15:04:05Z0700",                // ISO 8601 format with timezone offset, e.g., 2023-08-15T13:45:30Z0700
+		"2006-01-02T15:04:05Z07",                  // ISO 8601 format with timezone offset (short), e.g., 2023-08-15T13:45:30Z07
+		"2006.1.2",                                // Year, month, and day with dots, e.g., 2023.8.15
+		"2006.1.2 15:04:05",                       // Year, month, day, and time with dots, e.g., 2023.8.15 13:45:30
+		"2006.01.02",                              // Year, month, and day with leading zeros, e.g., 2023.08.15
+		"2006.01.02 15:04:05",                     // Year, month, day, and time with leading zeros, e.g., 2023.08.15 13:45:30
+		"2006.01.02 15:04:05.999999999",           // Full date and time with nanoseconds and leading zeros, e.g., 2023.08.15 13:45:30.123456789
+		"1/2/2006",                                // Month, day, and year with slashes, e.g., 8/15/2023
+		"1/2/2006 15:4:5",                         // Month, day, year, and time with slashes, e.g., 8/15/2023 13:45:30
+		"2006/01/02",                              // Year, month, and day with slashes, e.g., 2023/08/15
+		"20060102",                                // Year, month, and day without separators, e.g., 20230815
+		"2006/01/02 15:04:05",                     // Year, month, day, and time with slashes, e.g., 2023/08/15 13:45:30
+		time.ANSIC,                                // ANSIC format, e.g., Mon Aug 15 13:45:30 2023
+		time.UnixDate,                             // Unix date format, e.g., Mon Aug 15 13:45:30 MST 2023
+		time.RubyDate,                             // Ruby date format, e.g., Mon Aug 15 13:45:30 +0700 2023
+		time.RFC822,                               // RFC 822 format, e.g., 15 Aug 23 13:45 MST
+		time.RFC822Z,                              // RFC 822 format with numeric timezone, e.g., 15 Aug 23 13:45 -0700
+		time.RFC850,                               // RFC 850 format, e.g., Monday, 15-Aug-23 13:45:30 MST
+		time.RFC1123,                              // RFC 1123 format, e.g., Mon, 15 Aug 2023 13:45:30 MST
+		time.RFC1123Z,                             // RFC 1123 format with numeric timezone, e.g., Mon, 15 Aug 2023 13:45:30 -0700
+		time.RFC3339,                              // RFC 3339 format, e.g., 2023-08-15T13:45:30Z
+		time.RFC3339Nano,                          // RFC 3339 format with nanoseconds, e.g., 2023-08-15T13:45:30.123456789Z
+		time.Kitchen,                              // Kitchen format, e.g., 1:45PM
+		time.Stamp,                                // Stamp format, e.g., Aug 15 13:45:30
+		time.StampMilli,                           // Stamp format with milliseconds, e.g., Aug 15 13:45:30.123
+		time.StampMicro,                           // Stamp format with microseconds, e.g., Aug 15 13:45:30.123456
+		time.StampNano,                            // Stamp format with nanoseconds, e.g., Aug 15 13:45:30.123456789
 	}
 )
