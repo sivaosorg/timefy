@@ -146,3 +146,43 @@ func (c *Config) MustParse(s ...string) time.Time {
 		return c.With(time.Now().In(c.TimeLocation)).MustParse(s...)
 	}
 }
+
+// BeginningOfMinute returns a new time.Time value representing the start of the minute for the
+// given Timex instance.
+//
+// The function uses the `Truncate()` method on the underlying time.Time of the Timex struct,
+// truncating the time to the nearest minute. This effectively resets the seconds and
+// nanoseconds to zero, providing the time corresponding to the beginning of the current minute.
+//
+// Returns:
+//   - A `time.Time` value representing the start of the minute for the current Timex instance.
+//
+// Example:
+//
+// t := Timex{Time: time.Now()}
+//
+// startOfMinute := t.BeginningOfMinute() // This will return the current time truncated to the start of the minute.
+func (t *Timex) BeginningOfMinute() time.Time {
+	return t.Truncate(time.Minute)
+}
+
+// BeginningOfHour returns a new time.Time value representing the start of the hour for the
+// given Timex instance.
+//
+// The function retrieves the year, month, and day from the underlying time.Time of the Timex struct
+// using the `Date()` method. It then constructs a new time.Time value with the same year, month, and
+// day but sets the hour to the current hour and resets the minutes, seconds, and nanoseconds to zero.
+// This effectively provides the time corresponding to the beginning of the current hour.
+//
+// Returns:
+//   - A `time.Time` value representing the start of the hour for the current Timex instance.
+//
+// Example:
+//
+// t := Timex{Time: time.Now()}
+//
+// startOfHour := t.BeginningOfHour() // This will return the current time truncated to the start of the hour.
+func (t *Timex) BeginningOfHour() time.Time {
+	y, m, d := t.Date()
+	return time.Date(y, m, d, t.Time.Hour(), 0, 0, 0, t.Time.Location())
+}
