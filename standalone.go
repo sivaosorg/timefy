@@ -11,11 +11,11 @@ import "time"
 //
 // Parameters:
 //
-// - `v`: A time.Time value representing the date from which the beginning of the day is extracted.
+//   - `v`: A time.Time value representing the date from which the beginning of the day is extracted.
 //
 // Returns:
 //
-// - A time.Time value representing the start of the day (00:00:00) for the provided date.
+//   - A time.Time value representing the start of the day (00:00:00) for the provided date.
 //
 // Example:
 //
@@ -35,11 +35,11 @@ func BeginOfDay(v time.Time) time.Time {
 //
 // Parameters:
 //
-// - `v`: A time.Time value representing the date from which the end of the day is extracted.
+//   - `v`: A time.Time value representing the date from which the end of the day is extracted.
 //
 // Returns:
 //
-// - A time.Time value representing the end of the day (23:59:59) for the provided date.
+//   - A time.Time value representing the end of the day (23:59:59) for the provided date.
 //
 // Example:
 //
@@ -57,13 +57,13 @@ func EndOfDayX(v time.Time) time.Time {
 //
 // Parameters:
 //
-// - `v`: A time.Time value representing the reference date.
+//   - `v`: A time.Time value representing the reference date.
 //
-// - `day`: An integer representing how many days to go back from the reference date.
+//   - `day`: An integer representing how many days to go back from the reference date.
 //
 // Returns:
 //
-// - A time.Time value representing the start of the day (00:00:00) for the date that is `day` days before `v`.
+//   - A time.Time value representing the start of the day (00:00:00) for the date that is `day` days before `v`.
 //
 // Example:
 //
@@ -82,13 +82,13 @@ func PrevBeginOfDay(v time.Time, day int) time.Time {
 //
 // Parameters:
 //
-// - `v`: A time.Time value representing the reference date.
+//   - `v`: A time.Time value representing the reference date.
 //
-// - `day`: An integer representing how many days to go back from the reference date.
+//   - `day`: An integer representing how many days to go back from the reference date.
 //
 // Returns:
 //
-// - A time.Time value representing the end of the day (23:59:59) for the date that is `day` days before `v`.
+//   - A time.Time value representing the end of the day (23:59:59) for the date that is `day` days before `v`.
 //
 // Example:
 //
@@ -109,15 +109,15 @@ func PrevEndOfDay(v time.Time, day int) time.Time {
 //
 // Parameters:
 //
-// - `v`: A time.Time value representing the reference time.
+//   - `v`: A time.Time value representing the reference time.
 //
-// - `tz`: A string representing the IANA timezone name (e.g., "America/New_York", "Europe/London").
+//   - `tz`: A string representing the IANA timezone name (e.g., "America/New_York", "Europe/London").
 //
 // Returns:
 //
-// - A time.Time value representing the time `v` converted to the specified timezone.
+//   - A time.Time value representing the time `v` converted to the specified timezone.
 //
-// - An error value, which will be non-nil if the timezone string is invalid.
+//   - An error value, which will be non-nil if the timezone string is invalid.
 //
 // Example:
 //
@@ -139,13 +139,13 @@ func SetTimezone(v time.Time, tz string) (time.Time, error) {
 //
 // Parameters:
 //
-// - `v`: A time.Time value representing the reference time.
+//   - `v`: A time.Time value representing the reference time.
 //
-// - `tz`: A string representing the IANA timezone name (e.g., "America/New_York", "Asia/Tokyo").
+//   - `tz`: A string representing the IANA timezone name (e.g., "America/New_York", "Asia/Tokyo").
 //
 // Returns:
 //
-// - A time.Time value representing the time `v` adjusted to the specified timezone. If an error occurs, it returns the original time.
+//   - A time.Time value representing the time `v` adjusted to the specified timezone. If an error occurs, it returns the original time.
 //
 // Example:
 //
@@ -167,13 +167,13 @@ func AdjustTimezone(v time.Time, tz string) time.Time {
 //
 // Parameters:
 //
-// - `v`: A time.Time value representing the initial time.
+//   - `v`: A time.Time value representing the initial time.
 //
-// - `second`: An integer representing the number of seconds to add. If negative, it subtracts the seconds from `v`.
+//   - `second`: An integer representing the number of seconds to add. If negative, it subtracts the seconds from `v`.
 //
 // Returns:
 //
-// - A time.Time value representing the time `v` adjusted by the specified number of seconds.
+//   - A time.Time value representing the time `v` adjusted by the specified number of seconds.
 //
 // Example:
 //
@@ -196,13 +196,13 @@ func AddSecond(v time.Time, second int) time.Time {
 //
 // Parameters:
 //
-// - `v`: A time.Time value representing the initial time.
+//   - `v`: A time.Time value representing the initial time.
 //
-// - `minute`: An integer representing the number of minutes to add. If negative, it subtracts the minutes from `v`.
+//   - `minute`: An integer representing the number of minutes to add. If negative, it subtracts the minutes from `v`.
 //
 // Returns:
 //
-// - A time.Time value representing the time `v` adjusted by the specified number of minutes.
+//   - A time.Time value representing the time `v` adjusted by the specified number of minutes.
 //
 // Example:
 //
@@ -225,13 +225,13 @@ func AddMinute(v time.Time, minute int) time.Time {
 //
 // Parameters:
 //
-// - `v`: A time.Time value representing the initial time.
+//   - `v`: A time.Time value representing the initial time.
 //
-// - `hour`: An integer representing the number of hours to add. If negative, it subtracts the hours from `v`.
+//   - `hour`: An integer representing the number of hours to add. If negative, it subtracts the hours from `v`.
 //
 // Returns:
 //
-// - A time.Time value representing the time `v` adjusted by the specified number of hours.
+//   - A time.Time value representing the time `v` adjusted by the specified number of hours.
 //
 // Example:
 //
@@ -255,13 +255,13 @@ func AddHour(v time.Time, hour int) time.Time {
 //
 // Parameters:
 //
-// - `v`: A time.Time value representing the initial time
+//   - `v`: A time.Time value representing the initial time
 //
-// - `day`: An integer representing the number of days to add. If negative, it subtracts the days from `v`.
+//   - `day`: An integer representing the number of days to add. If negative, it subtracts the days from `v`.
 //
 // Returns:
 //
-// - A time.Time value representing the time `v` adjusted by the specified number of days.
+//   - A time.Time value representing the time `v` adjusted by the specified number of days.
 //
 // Example:
 //
@@ -286,7 +286,7 @@ func AddDay(v time.Time, day int) time.Time {
 //
 // Parameters:
 //
-// - `v`: A time.Time value representing the time to check.
+//   - `v`: A time.Time value representing the time to check.
 //
 // Returns:
 //
@@ -313,12 +313,12 @@ func IsWithinTolerance(v time.Time) bool {
 // IsLeapYear determines if the specified year is a leap year.
 //
 // A year is considered a leap year if:
-// - It is divisible by 4; and
-// - It is not divisible by 100, unless it is also divisible by 400.
+//   - It is divisible by 4; and
+//   - It is not divisible by 100, unless it is also divisible by 400.
 //
 // Parameters:
 //
-// - `year`: An integer representing the year to check.
+//   - `year`: An integer representing the year to check.
 //
 // Returns:
 // - A boolean value:
@@ -341,7 +341,7 @@ func IsLeapYear(year int) bool {
 //
 // Parameters:
 //
-// - `v`: A time.Time value representing the date from which the year is extracted.
+//   - `v`: A time.Time value representing the date from which the year is extracted.
 //
 // Returns:
 // - A boolean value:
@@ -366,13 +366,13 @@ func IsLeapYearN(v time.Time) bool {
 //
 // Parameters:
 //
-// - `start`: A time.Time value representing the start date of the range.
+//   - `start`: A time.Time value representing the start date of the range.
 //
-// - `end`: A time.Time value representing the end date of the range.
+//   - `end`: A time.Time value representing the end date of the range.
 //
 // Returns:
 //
-// - A slice of time.Time values representing all weekdays between `start` and `end`, inclusive.
+//   - A slice of time.Time values representing all weekdays between `start` and `end`, inclusive.
 //
 // Example:
 //
@@ -395,4 +395,73 @@ func GetWeekdaysInRange(start time.Time, end time.Time) []time.Time {
 		}
 	}
 	return weekdays
+}
+
+// SinceHour calculates the number of hours that have passed since the provided time value `v`.
+//
+// The function computes the time difference between the current time and `v` using time.Since().
+// The resulting duration is then converted into hours using the Hours() method.
+//
+// Parameters:
+//
+//   - `v`: A time.Time value representing the starting time to calculate the elapsed hours from.
+//
+// Returns:
+//
+//   - A float64 value representing the number of hours that have passed since the time `v`.
+//
+// Example:
+//
+// start := time.Date(2023, time.March, 15, 8, 0, 0, 0, time.UTC)
+// elapsedHours := SinceHour(start) // This will return the hours passed since March 15, 2023, 8:00 AM.
+func SinceHour(v time.Time) float64 {
+	duration := time.Since(v)
+	hours := duration.Hours()
+	return hours
+}
+
+// SinceMinute calculates the number of minutes that have passed since the provided time value `v`.
+//
+// The function computes the time difference between the current time and `v` using time.Since().
+// The resulting duration is then converted into minutes using the Minutes() method.
+//
+// Parameters:
+//
+//   - `v`: A time.Time value representing the starting time to calculate the elapsed minutes from.
+//
+// Returns:
+//
+//   - A float64 value representing the number of minutes that have passed since the time `v`.
+//
+// Example:
+//
+// start := time.Date(2023, time.March, 15, 8, 0, 0, 0, time.UTC)
+// elapsedMinutes := SinceMinute(start) // This will return the minutes passed since March 15, 2023, 8:00 AM.
+func SinceMinute(v time.Time) float64 {
+	duration := time.Since(v)
+	minutes := duration.Minutes()
+	return minutes
+}
+
+// SinceSecond calculates the number of seconds that have passed since the provided time value `v`.
+//
+// The function computes the time difference between the current time and `v` using time.Since().
+// The resulting duration is then converted into seconds using the Seconds() method.
+//
+// Parameters:
+//
+//   - `v`: A time.Time value representing the starting time to calculate the elapsed seconds from.
+//
+// Returns:
+//
+//   - A float64 value representing the number of seconds that have passed since the time `v`.
+//
+// Example:
+//
+// start := time.Date(2023, time.March, 15, 8, 0, 0, 0, time.UTC)
+// elapsedSeconds := SinceSecond(start) // This will return the seconds passed since March 15, 2023, 8:00 AM.
+func SinceSecond(v time.Time) float64 {
+	duration := time.Since(v)
+	seconds := duration.Seconds()
+	return seconds
 }
