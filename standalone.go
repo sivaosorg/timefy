@@ -19,13 +19,13 @@ import "time"
 //
 // Example:
 //
-// now := time.Now()
-// startOfDay := BeginOfDay(now) // This will set the time to midnight of the current day.
+//	now := time.Now()
+//	startOfDay := BeginOfDay(now) // This will set the time to midnight of the current day.
 func BeginOfDay(v time.Time) time.Time {
 	return time.Date(v.Year(), v.Month(), v.Day(), 0, 0, 0, 0, v.Local().Location())
 }
 
-// EndOfDayX takes a time value `v` and returns a new time.Time object
+// EndOfDayN takes a time value `v` and returns a new time.Time object
 // representing the end of the day for that date.
 //
 // The function uses the time.Date method to set the time to the last possible second
@@ -43,9 +43,9 @@ func BeginOfDay(v time.Time) time.Time {
 //
 // Example:
 //
-// now := time.Now()
-// endOfDay := EndOfDayX(now) // This will set the time to the last second of the current day.
-func EndOfDayX(v time.Time) time.Time {
+//	now := time.Now()
+//	endOfDay := EndOfDayN(now) // This will set the time to the last second of the current day.
+func EndOfDayN(v time.Time) time.Time {
 	return time.Date(v.Year(), v.Month(), v.Day(), 23, 59, 59, 0, v.Local().Location())
 }
 
@@ -67,8 +67,8 @@ func EndOfDayX(v time.Time) time.Time {
 //
 // Example:
 //
-// now := time.Now()
-// twoDaysAgoStart := PrevBeginOfDay(now, 2) // This will return the start of the day two days before the current date.
+//	now := time.Now()
+//	twoDaysAgoStart := PrevBeginOfDay(now, 2) // This will return the start of the day two days before the current date.
 func PrevBeginOfDay(v time.Time, day int) time.Time {
 	last := v.AddDate(0, 0, -day)
 	return BeginOfDay(last)
@@ -92,11 +92,11 @@ func PrevBeginOfDay(v time.Time, day int) time.Time {
 //
 // Example:
 //
-// now := time.Now()
-// twoDaysAgoEnd := PrevEndOfDay(now, 2) // This will return the end of the day two days before the current date.
+//	now := time.Now()
+//	twoDaysAgoEnd := PrevEndOfDay(now, 2) // This will return the end of the day two days before the current date.
 func PrevEndOfDay(v time.Time, day int) time.Time {
 	last := v.AddDate(0, 0, -day)
-	return EndOfDayX(last)
+	return EndOfDayN(last)
 }
 
 // SetTimezone takes a time value `v` and a string `tz` representing the target timezone.
@@ -121,8 +121,8 @@ func PrevEndOfDay(v time.Time, day int) time.Time {
 //
 // Example:
 //
-// now := time.Now()
-// nyTime, err := SetTimezone(now, "America/New_York") // This will convert the current time to New York's timezone.
+//	now := time.Now()
+//	nyTime, err := SetTimezone(now, "America/New_York") // This will convert the current time to New York's timezone.
 func SetTimezone(v time.Time, tz string) (time.Time, error) {
 	loc, err := time.LoadLocation(tz)
 	now := v.In(loc)
@@ -149,9 +149,8 @@ func SetTimezone(v time.Time, tz string) (time.Time, error) {
 //
 // Example:
 //
-// now := time.Now()
-//
-// adjustedTime := AdjustTimezone(now, "Europe/Paris") // This will adjust `now` to Paris' timezone if valid, or return `now` if invalid.
+//	now := time.Now()
+//	adjustedTime := AdjustTimezone(now, "Europe/Paris") // This will adjust `now` to Paris' timezone if valid, or return `now` if invalid.
 func AdjustTimezone(v time.Time, tz string) time.Time {
 	t, err := SetTimezone(v, tz)
 	if err != nil {
@@ -179,9 +178,8 @@ func AdjustTimezone(v time.Time, tz string) time.Time {
 //
 // now := time.Now()
 //
-// fiveSecondsLater := AddSecond(now, 5)  // This will return the time 5 seconds later.
-//
-// fiveSecondsEarlier := AddSecond(now, -5) // This will return the time 5 seconds earlier.
+//	fiveSecondsLater := AddSecond(now, 5)  // This will return the time 5 seconds later.
+//	fiveSecondsEarlier := AddSecond(now, -5) // This will return the time 5 seconds earlier.
 func AddSecond(v time.Time, second int) time.Time {
 	if second == 0 {
 		return v
@@ -206,11 +204,9 @@ func AddSecond(v time.Time, second int) time.Time {
 //
 // Example:
 //
-// now := time.Now()
-//
-// tenMinutesLater := AddMinute(now, 10)  // This will return the time 10 minutes later.
-//
-// tenMinutesEarlier := AddMinute(now, -10) // This will return the time 10 minutes earlier.
+//	now := time.Now()
+//	tenMinutesLater := AddMinute(now, 10)  // This will return the time 10 minutes later.
+//	tenMinutesEarlier := AddMinute(now, -10) // This will return the time 10 minutes earlier.
 func AddMinute(v time.Time, minute int) time.Time {
 	if minute == 0 {
 		return v
@@ -235,11 +231,9 @@ func AddMinute(v time.Time, minute int) time.Time {
 //
 // Example:
 //
-// now := time.Now()
-//
-// threeHoursLater := AddHour(now, 3)  // This will return the time 3 hours later.
-//
-// threeHoursEarlier := AddHour(now, -3) // This will return the time 3 hours earlier.
+//	now := time.Now()
+//	threeHoursLater := AddHour(now, 3)  // This will return the time 3 hours later.
+//	threeHoursEarlier := AddHour(now, -3) // This will return the time 3 hours earlier.
 func AddHour(v time.Time, hour int) time.Time {
 	if hour == 0 {
 		return v
@@ -265,11 +259,9 @@ func AddHour(v time.Time, hour int) time.Time {
 //
 // Example:
 //
-// now := time.Now()
-//
-// fiveDaysLater := AddDay(now, 5)  // This will return the time 5 days later.
-//
-// fiveDaysEarlier := AddDay(now, -5) // This will return the time 5 days earlier.
+//	now := time.Now()
+//	fiveDaysLater := AddDay(now, 5)  // This will return the time 5 days later.
+//	fiveDaysEarlier := AddDay(now, -5) // This will return the time 5 days earlier.
 func AddDay(v time.Time, day int) time.Time {
 	if day == 0 {
 		return v
@@ -298,11 +290,9 @@ func AddDay(v time.Time, day int) time.Time {
 //
 // Example:
 //
-// now := time.Now()
-//
-// checkTime := now.Add(time.Second * 30)
-//
-// isOnTime := IsWithinTolerance(checkTime) // This will return true since checkTime is within 1 minute of now.
+//	now := time.Now()
+//	checkTime := now.Add(time.Second * 30)
+//	isOnTime := IsWithinTolerance(checkTime) // This will return true since checkTime is within 1 minute of now.
 func IsWithinTolerance(v time.Time) bool {
 	target := time.Now()
 	tolerance := time.Minute
@@ -327,9 +317,8 @@ func IsWithinTolerance(v time.Time) bool {
 //
 // Example:
 //
-// leapYear := IsLeapYear(2020) // This will return true since 2020 is a leap year.
-//
-// nonLeapYear := IsLeapYear(2021) // This will return false since 2021 is not a leap year.
+//	leapYear := IsLeapYear(2020) // This will return true since 2020 is a leap year.
+//	nonLeapYear := IsLeapYear(2021) // This will return false since 2021 is not a leap year.
 func IsLeapYear(year int) bool {
 	return year%4 == 0 && (year%100 != 0 || year%400 == 0)
 }
@@ -350,9 +339,8 @@ func IsLeapYear(year int) bool {
 //
 // Example:
 //
-// now := time.Now()
-//
-// isLeap := IsLeapYearN(now) // This will return true if the current year is a leap year.
+//	now := time.Now()
+//	isLeap := IsLeapYearN(now) // This will return true if the current year is a leap year.
 func IsLeapYearN(v time.Time) bool {
 	return IsLeapYear(v.Year())
 }
@@ -376,11 +364,9 @@ func IsLeapYearN(v time.Time) bool {
 //
 // Example:
 //
-// start := time.Date(2023, time.March, 1, 0, 0, 0, 0, time.UTC)
-//
-// end := time.Date(2023, time.March, 10, 0, 0, 0, 0, time.UTC)
-//
-// weekdays := GetWeekdaysInRange(start, end) // This will return all weekdays between March 1 and March 10, 2023.
+//	start := time.Date(2023, time.March, 1, 0, 0, 0, 0, time.UTC)
+//	end := time.Date(2023, time.March, 10, 0, 0, 0, 0, time.UTC)
+//	weekdays := GetWeekdaysInRange(start, end) // This will return all weekdays between March 1 and March 10, 2023.
 func GetWeekdaysInRange(start time.Time, end time.Time) []time.Time {
 	var weekdays []time.Time
 	for current := start; current.Before(end) || current.Equal(end); current = current.AddDate(0, 0, 1) {
@@ -412,8 +398,8 @@ func GetWeekdaysInRange(start time.Time, end time.Time) []time.Time {
 //
 // Example:
 //
-// start := time.Date(2023, time.March, 15, 8, 0, 0, 0, time.UTC)
-// elapsedHours := SinceHour(start) // This will return the hours passed since March 15, 2023, 8:00 AM.
+//	start := time.Date(2023, time.March, 15, 8, 0, 0, 0, time.UTC)
+//	elapsedHours := SinceHour(start) // This will return the hours passed since March 15, 2023, 8:00 AM.
 func SinceHour(v time.Time) float64 {
 	duration := time.Since(v)
 	hours := duration.Hours()
@@ -435,8 +421,8 @@ func SinceHour(v time.Time) float64 {
 //
 // Example:
 //
-// start := time.Date(2023, time.March, 15, 8, 0, 0, 0, time.UTC)
-// elapsedMinutes := SinceMinute(start) // This will return the minutes passed since March 15, 2023, 8:00 AM.
+//	start := time.Date(2023, time.March, 15, 8, 0, 0, 0, time.UTC)
+//	elapsedMinutes := SinceMinute(start) // This will return the minutes passed since March 15, 2023, 8:00 AM.
 func SinceMinute(v time.Time) float64 {
 	duration := time.Since(v)
 	minutes := duration.Minutes()
@@ -458,8 +444,8 @@ func SinceMinute(v time.Time) float64 {
 //
 // Example:
 //
-// start := time.Date(2023, time.March, 15, 8, 0, 0, 0, time.UTC)
-// elapsedSeconds := SinceSecond(start) // This will return the seconds passed since March 15, 2023, 8:00 AM.
+//	start := time.Date(2023, time.March, 15, 8, 0, 0, 0, time.UTC)
+//	elapsedSeconds := SinceSecond(start) // This will return the seconds passed since March 15, 2023, 8:00 AM.
 func SinceSecond(v time.Time) float64 {
 	duration := time.Since(v)
 	seconds := duration.Seconds()
