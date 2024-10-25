@@ -25,7 +25,7 @@ func BeginOfDay(v time.Time) time.Time {
 	return time.Date(v.Year(), v.Month(), v.Day(), 0, 0, 0, 0, v.Local().Location())
 }
 
-// EndOfDayN takes a time value `v` and returns a new time.Time object
+// EndOfDay takes a time value `v` and returns a new time.Time object
 // representing the end of the day for that date.
 //
 // The function uses the time.Date method to set the time to the last possible second
@@ -44,8 +44,8 @@ func BeginOfDay(v time.Time) time.Time {
 // Example:
 //
 //	now := time.Now()
-//	endOfDay := EndOfDayN(now) // This will set the time to the last second of the current day.
-func EndOfDayN(v time.Time) time.Time {
+//	endOfDay := EndOfDay(now) // This will set the time to the last second of the current day.
+func EndOfDay(v time.Time) time.Time {
 	return time.Date(v.Year(), v.Month(), v.Day(), 23, 59, 59, 0, v.Local().Location())
 }
 
@@ -96,7 +96,7 @@ func PrevBeginOfDay(v time.Time, day int) time.Time {
 //	twoDaysAgoEnd := PrevEndOfDay(now, 2) // This will return the end of the day two days before the current date.
 func PrevEndOfDay(v time.Time, day int) time.Time {
 	last := v.AddDate(0, 0, -day)
-	return EndOfDayN(last)
+	return EndOfDay(last)
 }
 
 // SetTimezone takes a time value `v` and a string `tz` representing the target timezone.
@@ -450,4 +450,37 @@ func SinceSecond(v time.Time) float64 {
 	duration := time.Since(v)
 	seconds := duration.Seconds()
 	return seconds
+}
+
+// FormatTimex converts a given time.Time value into a slice of integers representing various time components.
+//
+// The function extracts the hour, minute, second, nanosecond, day, month, and year from the provided
+// time.Time value. It then returns these components in a specific order as a slice of integers.
+//
+// The order of the returned slice is as follows:
+//   - [0]: Nanosecond
+//   - [1]: Second
+//   - [2]: Minute
+//   - [3]: Hour
+//   - [4]: Day
+//   - [5]: Month (as an integer, where January is 1)
+//   - [6]: Year
+//
+// Parameters:
+//
+//   - `t`: A time.Time value representing the time to format.
+//
+// Returns:
+//
+//   - A slice of integers containing the nanosecond, second, minute, hour, day, month, and year
+//     components of the provided time.Time value.
+//
+// Example:
+//
+//	t := time.Date(2023, time.March, 15, 8, 0, 0, 0, time.UTC)
+//	formatted := FormatTimex(t) // This will return a slice with the components [0, 0, 0, 8, 15, 3, 2023].
+func FormatTimex(t time.Time) []int {
+	hour, min, sec := t.Clock()
+	year, month, day := t.Date()
+	return []int{t.Nanosecond(), sec, min, hour, day, int(month), year}
 }
