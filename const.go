@@ -319,14 +319,14 @@ const (
 )
 
 var (
-	// ApplyTimeRegexp is a regular expression that matches various time formats such as:
+	// TimeFormatRegexp is a regular expression that matches various time formats such as:
 	// 	15:04:05, 15:04:05.000, 15:04:05.000000, 15, 2017-01-01 15:04, 2021-07-20T00:59:10Z,
 	// 	2021-07-20T00:59:10+08:00, 2021-07-20T00:00:10-07:00, etc.
-	ApplyTimeRegexp = regexp.MustCompile(`(\s+|^\s*|T)\d{1,2}((:\d{1,2})*|((:\d{1,2}){2}\.(\d{3}|\d{6}|\d{9})))(\s*$|[Z+-])`)
+	TimeFormatRegexp = regexp.MustCompile(`(\s+|^\s*|T)\d{1,2}((:\d{1,2})*|((:\d{1,2}){2}\.(\d{3}|\d{6}|\d{9})))(\s*$|[Z+-])`)
 
-	// OnlyTimeRegexp is a regular expression that matches time formats such as:
+	// TimeOnlyRegexp is a regular expression that matches time formats such as:
 	// 	15:04:05, 15, 15:04:05.000, 15:04:05.000000, etc.
-	OnlyTimeRegexp = regexp.MustCompile(`^\s*\d{1,2}((:\d{1,2})*|((:\d{1,2}){2}\.(\d{3}|\d{6}|\d{9})))\s*$`)
+	TimeOnlyRegexp = regexp.MustCompile(`^\s*\d{1,2}((:\d{1,2})*|((:\d{1,2}){2}\.(\d{3}|\d{6}|\d{9})))\s*$`)
 )
 
 var (
