@@ -25,7 +25,7 @@ func BeginOfDay(v time.Time) time.Time {
 	return time.Date(v.Year(), v.Month(), v.Day(), 0, 0, 0, 0, v.Local().Location())
 }
 
-// EndOfDay takes a time value `v` and returns a new time.Time object
+// EndOfDayN takes a time value `v` and returns a new time.Time object
 // representing the end of the day for that date.
 //
 // The function uses the time.Date method to set the time to the last possible second
@@ -44,8 +44,8 @@ func BeginOfDay(v time.Time) time.Time {
 // Example:
 //
 //	now := time.Now()
-//	endOfDay := EndOfDay(now) // This will set the time to the last second of the current day.
-func EndOfDay(v time.Time) time.Time {
+//	endOfDay := EndOfDayN(now) // This will set the time to the last second of the current day.
+func EndOfDayN(v time.Time) time.Time {
 	return time.Date(v.Year(), v.Month(), v.Day(), 23, 59, 59, 0, v.Local().Location())
 }
 
@@ -96,7 +96,7 @@ func PrevBeginOfDay(v time.Time, day int) time.Time {
 //	twoDaysAgoEnd := PrevEndOfDay(now, 2) // This will return the end of the day two days before the current date.
 func PrevEndOfDay(v time.Time, day int) time.Time {
 	last := v.AddDate(0, 0, -day)
-	return EndOfDay(last)
+	return EndOfDayN(last)
 }
 
 // SetTimezone takes a time value `v` and a string `tz` representing the target timezone.
