@@ -13,12 +13,12 @@ To install, you can use the following commands based on your preference:
 - For a specific version:
 
   ```bash
-  go get github.com/sivaosorg/timefy.git@v0.0.1
+  go get github.com/sivaosorg/timefy@v0.0.1
   ```
 
 - For the latest version:
   ```bash
-  go get -u github.com/sivaosorg/timefy.git@latest
+  go get -u github.com/sivaosorg/timefy@latest
   ```
 
 ### Getting started
