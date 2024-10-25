@@ -19,8 +19,8 @@ import "time"
 //
 // Example:
 //
-// t := time.Now()
-// timex := With(t) // This wraps the current time into a Timex object with the default configuration.
+//	t := time.Now()
+//	timex := With(t) // This wraps the current time into a Timex object with the default configuration.
 func With(v time.Time) *Timex {
 	c := DefaultConfig
 	if c == nil {
@@ -47,8 +47,8 @@ func With(v time.Time) *Timex {
 //
 // Example:
 //
-// t := time.Now()
-// timex := New(t) // This creates a new Timex object for the current time.
+//	t := time.Now()
+//	timex := New(t) // This creates a new Timex object for the current time.
 func New(v time.Time) *Timex {
 	return With(v)
 }
@@ -68,11 +68,9 @@ func New(v time.Time) *Timex {
 //
 // Example:
 //
-// customConfig := &Config{WeekStartDay: time.Monday}
-//
-// t := time.Now()
-//
-// timex := customConfig.With(t) // This creates a Timex object with the custom configuration.
+//	customConfig := &Config{WeekStartDay: time.Monday}
+//	t := time.Now()
+//	timex := customConfig.With(t) // This creates a Timex object with the custom configuration.
 func (c *Config) With(v time.Time) *Timex {
 	return &Timex{Time: v, Config: c}
 }
@@ -95,15 +93,13 @@ func (c *Config) With(v time.Time) *Timex {
 //
 // Example:
 //
-// config := &Config{TimeLocation: time.UTC}
-//
-// parsedTime, err := config.Parse("2023-10-24T12:00:00Z") // Parses the string using UTC time location.
+//	config := &Config{TimeLocation: time.UTC}
+//	parsedTime, err := config.Parse("2023-10-24T12:00:00Z") // Parses the string using UTC time location.
 //
 // If no `TimeLocation` is set, the function uses the local time zone:
 //
-// config := &Config{}
-//
-// parsedTime, err := config.Parse("2023-10-24T12:00:00") // Parses using the local time zone.
+//	config := &Config{}
+//	parsedTime, err := config.Parse("2023-10-24T12:00:00") // Parses using the local time zone.
 func (c *Config) Parse(s ...string) (time.Time, error) {
 	if c.TimeLocation == nil {
 		return c.With(time.Now()).Parse(s...)
@@ -130,15 +126,13 @@ func (c *Config) Parse(s ...string) (time.Time, error) {
 //
 // Example:
 //
-// config := &Config{TimeLocation: time.UTC}
+//	config := &Config{TimeLocation: time.UTC}
+//	parsedTime := config.MustParse("2023-10-24T12:00:00Z") // Parses the string using UTC time location.
 //
-// parsedTime := config.MustParse("2023-10-24T12:00:00Z") // Parses the string using UTC time location.
+//	 If no `TimeLocation` is set, the function uses the local time zone:
 //
-// If no `TimeLocation` is set, the function uses the local time zone:
-//
-// config := &Config{}
-//
-// parsedTime := config.MustParse("2023-10-24T12:00:00") // Parses using the local time zone, panicking on failure.
+//	config := &Config{}
+//	parsedTime := config.MustParse("2023-10-24T12:00:00") // Parses using the local time zone, panicking on failure.
 func (c *Config) MustParse(s ...string) time.Time {
 	if c.TimeLocation == nil {
 		return c.With(time.Now()).MustParse(s...)
@@ -159,9 +153,8 @@ func (c *Config) MustParse(s ...string) time.Time {
 //
 // Example:
 //
-// t := Timex{Time: time.Now()}
-//
-// startOfMinute := t.BeginningOfMinute() // This will return the current time truncated to the start of the minute.
+//	t := Timex{Time: time.Now()}
+//	startOfMinute := t.BeginningOfMinute() // This will return the current time truncated to the start of the minute.
 func (t *Timex) BeginningOfMinute() time.Time {
 	return t.Truncate(time.Minute)
 }
@@ -179,10 +172,162 @@ func (t *Timex) BeginningOfMinute() time.Time {
 //
 // Example:
 //
-// t := Timex{Time: time.Now()}
-//
-// startOfHour := t.BeginningOfHour() // This will return the current time truncated to the start of the hour.
+//	t := Timex{Time: time.Now()}
+//	startOfHour := t.BeginningOfHour() // This will return the current time truncated to the start of the hour.
 func (t *Timex) BeginningOfHour() time.Time {
 	y, m, d := t.Date()
 	return time.Date(y, m, d, t.Time.Hour(), 0, 0, 0, t.Time.Location())
+}
+
+// BeginningOfDay returns a new time.Time value representing the start of the day for the
+// given Timex instance.
+//
+// The function retrieves the year, month, and day from the underlying time.Time of the Timex struct
+// using the `Date()` method. It then constructs a new time.Time value with the same year, month, and
+// day but sets the hour, minute, second, and nanosecond to zero. This effectively resets the time to
+// midnight (00:00:00) of the same date, providing the start of the day.
+//
+// Returns:
+//   - A `time.Time` value representing the start of the day for the current Timex instance.
+//
+// Example:
+//
+//	t := Timex{Time: time.Now()}
+//	startOfDay := t.BeginningOfDay() // This will return the current date at 00:00:00 (midnight).
+func (t *Timex) BeginningOfDay() time.Time {
+	y, m, d := t.Date()
+	return time.Date(y, m, d, 0, 0, 0, 0, t.Time.Location())
+}
+
+// BeginningOfWeek returns a new time.Time value representing the start of the week for the
+//
+//	given Timex instance, based on the configured `WeekStartDay`.
+//
+// The function first calculates the beginning of the current day using `BeginningOfDay()`. Then, it determines
+// the current weekday and calculates how many days to subtract in order to reach the start of the week, based on
+// the configured start day (`WeekStartDay`). If `WeekStartDay` is set to a day other than Sunday, the function
+// adjusts the number of days to move back accordingly.
+//
+// Returns:
+//
+//   - A `time.Time` value representing the start of the week for the current Timex instance.
+//
+// Example:
+//
+//	t := Timex{Time: time.Now(), Config: &Config{WeekStartDay: time.Monday}}
+//	startOfWeek := t.BeginningOfWeek() // This will return the date and time at the start of the current week.
+//
+// Note:
+//
+//	If `WeekStartDay` is not set (defaults to Sunday), the function will return the preceding Sunday.
+func (t *Timex) BeginningOfWeek() time.Time {
+	day := t.BeginningOfDay()
+	weekday := int(day.Weekday())
+	if t.WeekStartDay != time.Sunday {
+		weekStartDayInt := int(t.WeekStartDay)
+		if weekday < weekStartDayInt {
+			weekday = weekday + 7 - weekStartDayInt
+		} else {
+			weekday = weekday - weekStartDayInt
+		}
+	}
+	return day.AddDate(0, 0, -weekday)
+}
+
+// BeginningOfMonth returns a new time.Time value representing the start of the month for the
+// given Timex instance.
+//
+// The function retrieves the year and month from the underlying time.Time of the Timex struct using the `Date()`
+// method. It then constructs a new time.Time value with the same year and month, but sets the day to the first of
+// the month and resets the hour, minute, second, and nanosecond to zero, providing the start of the month.
+//
+// Returns:
+//   - A `time.Time` value representing the start of the month for the current Timex instance.
+//
+// Example:
+//
+//	t := Timex{Time: time.Now()}
+//	startOfMonth := t.BeginningOfMonth() // This will return the date and time at the start of the current month.
+func (t *Timex) BeginningOfMonth() time.Time {
+	y, m, _ := t.Date()
+	return time.Date(y, m, 1, 0, 0, 0, 0, t.Location())
+}
+
+// BeginningOfQuarter returns a new time.Time value representing the start of the quarter
+// for the given Timex instance.
+//
+// The function first calculates the start of the current month using `BeginningOfMonth()`. It then determines
+// how far the current month is into the quarter by calculating the offset (based on a 3-month quarter system).
+// The offset is subtracted from the current month to return a time value corresponding to the start of the quarter
+// (e.g., if the current month is April, it will return the start of April; if it's June, it will return the start of April).
+//
+// Returns:
+//   - A `time.Time` value representing the start of the quarter for the current Timex instance.
+//
+// Example:
+//
+//	t := Timex{Time: time.Now()}
+//	startOfQuarter := t.BeginningOfQuarter() // This will return the date and time at the start of the current quarter.
+func (t *Timex) BeginningOfQuarter() time.Time {
+	month := t.BeginningOfMonth()
+	offset := (int(month.Month()) - 1) % 3
+	return month.AddDate(0, -offset, 0)
+}
+
+// BeginningOfHalf returns a new time.Time value representing the start of the half-year
+// for the given Timex instance.
+//
+// The function first calculates the start of the current month using `BeginningOfMonth()`. It then determines
+// how far the current month is into the half-year by calculating the offset (based on a 6-month system).
+// The offset is subtracted from the current month to return a time value corresponding to the start of the half-year
+// (e.g., if the current month is July, it will return the start of July; if it's October, it will return the start of July).
+//
+// Returns:
+//   - A `time.Time` value representing the start of the half-year for the current Timex instance.
+//
+// Example:
+//
+//	t := Timex{Time: time.Now()}
+//	startOfHalf := t.BeginningOfHalf() // This will return the date and time at the start of the current half-year.
+func (t *Timex) BeginningOfHalf() time.Time {
+	month := t.BeginningOfMonth()
+	offset := (int(month.Month()) - 1) % 6
+	return month.AddDate(0, -offset, 0)
+}
+
+// BeginningOfYear returns a new time.Time value representing the start of the year
+// for the given Timex instance.
+//
+// The function retrieves the year from the underlying time.Time of the Timex struct using the `Date()` method.
+// It then constructs a new time.Time value with the same year but sets the month to January, and the day, hour,
+// minute, second, and nanosecond to zero. This effectively resets the time to midnight (00:00:00) on January 1st
+// of the current year.
+//
+// Returns:
+//   - A `time.Time` value representing the start of the year for the current Timex instance.
+//
+// Example:
+//
+//	t := Timex{Time: time.Now()}
+//	startOfYear := t.BeginningOfYear() // This will return January 1st of the current year at 00:00:00.
+func (t *Timex) BeginningOfYear() time.Time {
+	y, _, _ := t.Date()
+	return time.Date(y, time.January, 1, 0, 0, 0, 0, t.Location())
+}
+
+// EndOfMinute returns a new time.Time value representing the end of the current minute
+// for the given Timex instance.
+//
+// The function first calculates the start of the minute using `BeginningOfMinute()`, then adds one minute
+// and subtracts a nanosecond. This adjustment effectively gives the time at the last nanosecond of the current minute.
+//
+// Returns:
+//   - A `time.Time` value representing the end of the current minute for the Timex instance.
+//
+// Example:
+//
+//	t := Timex{Time: time.Now()}
+//	endOfMinute := t.EndOfMinute() // This will return the time at the end of the current minute (59.999999999 nanoseconds).
+func (t *Timex) EndOfMinute() time.Time {
+	return t.BeginningOfMinute().Add(time.Minute - time.Nanosecond)
 }
