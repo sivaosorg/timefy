@@ -16,126 +16,166 @@ var WeekStartDay = time.Sunday
 var DefaultConfig *Config
 
 const (
-	// Time in format 15:04:05, e.g., 13:45:30
+	// Time in format 15:04:05,
+	//	e.g., 13:45:30
 	TimeRFC01T150405 TimeRFC = "15:04:05"
 
-	// Time in format 15.04.05, e.g., 13.45.30
+	// Time in format 15.04.05,
+	//	e.g., 13.45.30
 	TimeRFC02D150405 TimeRFC = "15.04.05"
 
-	// Time in format 15-04-05, e.g., 13-45-30
+	// Time in format 15-04-05,
+	//	e.g., 13-45-30
 	TimeRFC03H150405 TimeRFC = "15-04-05"
 
-	// Time in format 15/04/05, e.g., 13/45/30
+	// Time in format 15/04/05,
+	//	e.g., 13/45/30
 	TimeRFC04M150405 TimeRFC = "15/04/05"
 
-	// Time in format 15 04 05, e.g., 13 45 30
+	// Time in format 15 04 05,
+	//	e.g., 13 45 30
 	TimeRFC05S150405 TimeRFC = "15 04 05"
 
-	// Time in format 150405, e.g., 134530
+	// Time in format 150405,
+	//	e.g., 134530
 	TimeRFC06T150405 TimeRFC = "150405"
 
-	// Time in format 15:04, e.g., 13:45
+	// Time in format 15:04,
+	//	e.g., 13:45
 	TimeRFC07D150405 TimeRFC = "15:04"
 
-	// Time in format 15.04, e.g., 13.45
+	// Time in format 15.04,
+	//	e.g., 13.45
 	TimeRFC08H150405 TimeRFC = "15.04"
 
-	// Time in format 15-04, e.g., 13-45
+	// Time in format 15-04,
+	//	e.g., 13-45
 	TimeRFC09M150405 TimeRFC = "15-04"
 
-	// Time in format 15/04, e.g., 13/45
+	// Time in format 15/04,
+	//	e.g., 13/45
 	TimeRFC10S150405 TimeRFC = "15/04"
 
-	// Time in format 1504, e.g., 1345
+	// Time in format 1504,
+	//	e.g., 1345
 	TimeRFC11T150405 TimeRFC = "1504"
 )
 
 const (
-	// Time in format 2006-01-02T15:04:05.999999, e.g., 2023-08-15T13:45:30.123456
+	// Time in format 2006-01-02T15:04:05.999999,
+	//	e.g., 2023-08-15T13:45:30.123456
 	TimeFormat20060102T150405999999 TimeFormatRFC = "2006-01-02T15:04:05.999999"
 
-	// Time in format 2006-01-02T15:04:05, e.g., 2023-08-15T13:45:30
+	// Time in format 2006-01-02T15:04:05,
+	//	e.g., 2023-08-15T13:45:30
 	TimeFormat20060102T150405 TimeFormatRFC = "2006-01-02T15:04:05"
 
-	// Time in format 2006-01-02 15:04:05, e.g., 2023-08-15 13:45:30
+	// Time in format 2006-01-02 15:04:05,
+	//	e.g., 2023-08-15 13:45:30
 	TimeFormat20060102150405 TimeFormatRFC = "2006-01-02 15:04:05"
 
-	// Time in format 02-01-2006 15:04:05, e.g., 15-08-2023 13:45:30
+	// Time in format 02-01-2006 15:04:05,
+	//	e.g., 15-08-2023 13:45:30
 	TimeFormat02012006150405 TimeFormatRFC = "02-01-2006 15:04:05"
 
-	// Time in format 02/01/2006 15:04:05, e.g., 15/08/2023 13:45:30
+	// Time in format 02/01/2006 15:04:05,
+	//	e.g., 15/08/2023 13:45:30
 	TimeFormatRFC0102012006150405 TimeFormatRFC = "02/01/2006 15:04:05"
 
-	// Time in format 2006-01-02 15:04:05.999999, e.g., 2023-08-15 13:45:30.123456
+	// Time in format 2006-01-02 15:04:05.999999,
+	//	e.g., 2023-08-15 13:45:30.123456
 	TimeFormat20060102150405999999 TimeFormatRFC = "2006-01-02 15:04:05.999999"
 
-	// Time in format 2006-01-02 15:04:05.999999999 -07:00, e.g., 2023-08-15 13:45:30.123456789 -07:00
+	// Time in format 2006-01-02 15:04:05.999999999 -07:00,
+	//	e.g., 2023-08-15 13:45:30.123456789 -07:00
 	TimeFormat20060102150405999999RFC3339 TimeFormatRFC = "2006-01-02 15:04:05.999999999 -07:00"
 
-	// Time in format 2006-01-02, e.g., 2023-08-15
+	// Time in format 2006-01-02,
+	//	e.g., 2023-08-15
 	TimeFormat20060102 TimeFormatRFC = "2006-01-02"
 
-	// Time in format 02/01/2006, e.g., 15/08/2023
+	// Time in format 02/01/2006,
+	//	e.g., 15/08/2023
 	TimeFormatRFC0102012006 TimeFormatRFC = "02/01/2006"
 
-	// Time in format 2006-01-02 15:04, e.g., 2023-08-15 13:45
+	// Time in format 2006-01-02 15:04,
+	//	e.g., 2023-08-15 13:45
 	TimeFormat200601021504 TimeFormatRFC = "2006-01-02 15:04"
 
-	// Time in format 2006-01-02 15, e.g., 2023-08-15 13
+	// Time in format 2006-01-02 15,
+	//	e.g., 2023-08-15 13
 	TimeFormat2006010215 TimeFormatRFC = "2006-01-02 15"
 
-	// Time in format 2006-01, e.g., 2023-08
+	// Time in format 2006-01,
+	//	e.g., 2023-08
 	TimeFormat200601 TimeFormatRFC = "2006-01"
 
-	// Time in format 02-01-2006, e.g., 15-08-2023
+	// Time in format 02-01-2006,
+	//	e.g., 15-08-2023
 	TimeFormat02012006 TimeFormatRFC = "02-01-2006"
 
-	// Time in format 01-02-2006, e.g., 08-15-2023
+	// Time in format 01-02-2006,
+	//	e.g., 08-15-2023
 	TimeFormat01022006 TimeFormatRFC = "01-02-2006"
 
-	// Time in format 2006-01-02 15:04:05 -07:00, e.g., 2023-08-15 13:45:30 -07:00
+	// Time in format 2006-01-02 15:04:05 -07:00,
+	//	e.g., 2023-08-15 13:45:30 -07:00
 	TimeFormat20060102150405Z0700 TimeFormatRFC = "2006-01-02 15:04:05 -07:00"
 
-	// Time in format 2006-01-02 15:04:05 -07:00:00, e.g., 2023-08-15 13:45:30 -07:00:00
+	// Time in format 2006-01-02 15:04:05 -07:00:00,
+	//	e.g., 2023-08-15 13:45:30 -07:00:00
 	TimeFormat20060102150405Z070000 TimeFormatRFC = "2006-01-02 15:04:05 -07:00:00"
 
-	// Time in format 2006-01-02T15:04:05-07:00, e.g., 2023-08-15T13:45:30-07:00
+	// Time in format 2006-01-02T15:04:05-07:00,
+	//	e.g., 2023-08-15T13:45:30-07:00
 	TimeFormat20060102150405Z0700RFC3339 TimeFormatRFC = "2006-01-02T15:04:05-07:00"
 
-	// Time in format 2006-01-02T15:04:05-07:00:00, e.g., 2023-08-15T13:45:30-07:00:00
+	// Time in format 2006-01-02T15:04:05-07:00:00,
+	//	e.g., 2023-08-15T13:45:30-07:00:00
 	TimeFormat20060102150405Z070000RFC3339 TimeFormatRFC = "2006-01-02T15:04:05-07:00:00"
 
-	// Time in format 2006-01-02 15:04:05 -07, e.g., 2023-08-15 13:45:30 -07
+	// Time in format 2006-01-02 15:04:05 -07,
+	//	e.g., 2023-08-15 13:45:30 -07
 	TimeFormat20060102150405Z07 TimeFormatRFC = "2006-01-02 15:04:05 -07"
 
-	// Time in format 2006-01-02T15:04:05-07, e.g., 2023-08-15T13:45:30-07
+	// Time in format 2006-01-02T15:04:05-07,
+	//	e.g., 2023-08-15T13:45:30-07
 	TimeFormat20060102150405Z07RFC3339 TimeFormatRFC = "2006-01-02T15:04:05-07"
 
-	// Time in format Mon, 02 Jan 2006 15:04:05 -0700, e.g., Tue, 15 Aug 2023 13:45:30 -0700
+	// Time in format Mon, 02 Jan 2006 15:04:05 -0700,
+	//	e.g., Tue, 15 Aug 2023 13:45:30 -0700
 	TimeFormat20060102150405Z0700RFC1123 TimeFormatRFC = "Mon, 02 Jan 2006 15:04:05 -0700"
 
-	// Time in format Mon, 02 Jan 2006 15:04:05 -07:00:00, e.g., Tue, 15 Aug 2023 13:45:30 -07:00:00
+	// Time in format Mon, 02 Jan 2006 15:04:05 -07:00:00,
+	//	e.g., Tue, 15 Aug 2023 13:45:30 -07:00:00
 	TimeFormat20060102150405Z070000RFC1123 TimeFormatRFC = "Mon, 02 Jan 2006 15:04:05 -07:00:00"
 
-	// Time in format Mon, 02 Jan 2006 15:04:05 -07, e.g., Tue, 15 Aug 2023 13:45:30 -07
+	// Time in format Mon, 02 Jan 2006 15:04:05 -07,
+	//	e.g., Tue, 15 Aug 2023 13:45:30 -07
 	TimeFormat20060102150405Z07RFC1123 TimeFormatRFC = "Mon, 02 Jan 2006 15:04:05 -07"
 
-	// Time in format 2006-01-02 15:04:05 UTC-07, e.g., 2023-08-15 13:45:30 UTC-07
+	// Time in format 2006-01-02 15:04:05 UTC-07,
+	//	e.g., 2023-08-15 13:45:30 UTC-07
 	TimeFormat20060102150405Z07UTC TimeFormatRFC = "2006-01-02 15:04:05 UTC-07"
 
-	// Time in format 2006-01-02 15:04:05 UTC-07:00, e.g., 2023-08-15 13:45:30 UTC-07:00
+	// Time in format 2006-01-02 15:04:05 UTC-07:00,
+	//	e.g., 2023-08-15 13:45:30 UTC-07:00
 	TimeFormat20060102150405Z0700UTC TimeFormatRFC = "2006-01-02 15:04:05 UTC-07:00"
 
-	// Time in format 2006-01-02 15:04:05 UTC-07:00:00, e.g., 2023-08-15 13:45:30 UTC-07:00:00
+	// Time in format 2006-01-02 15:04:05 UTC-07:00:00,
+	//	e.g., 2023-08-15 13:45:30 UTC-07:00:00
 	TimeFormat20060102150405Z070000UTC TimeFormatRFC = "2006-01-02 15:04:05 UTC-07:00:00"
 
-	// Time in format 2006-01-02T15:04:05UTC-07, e.g., 2023-08-15T13:45:30UTC-07
+	// Time in format 2006-01-02T15:04:05UTC-07,
+	//	e.g., 2023-08-15T13:45:30UTC-07
 	TimeFormat20060102150405Z07UTCRFC3339 TimeFormatRFC = "2006-01-02T15:04:05UTC-07"
 
-	// Time in format 2006-01-02T15:04:05UTC-07:00, e.g., 2023-08-15T13:45:30UTC-07:00
+	// Time in format 2006-01-02T15:04:05UTC-07:00,
+	//	e.g., 2023-08-15T13:45:30UTC-07:00
 	TimeFormat20060102150405Z0700UTCRFC3339 TimeFormatRFC = "2006-01-02T15:04:05UTC-07:00"
 
-	// Time in format 2006-01-02T15:04:05UTC-07:00:00, e.g., 2023-08-15T13:45:30UTC-07:00:00
+	// Time in format 2006-01-02T15:04:05UTC-07:00:00,
+	//	e.g., 2023-08-15T13:45:30UTC-07:00:00
 	TimeFormat20060102150405Z070000UTCRFC3339 TimeFormatRFC = "2006-01-02T15:04:05UTC-07:00:00"
 )
 
@@ -280,12 +320,12 @@ const (
 
 var (
 	// ApplyTimeRegexp is a regular expression that matches various time formats such as:
-	// 15:04:05, 15:04:05.000, 15:04:05.000000, 15, 2017-01-01 15:04, 2021-07-20T00:59:10Z,
-	// 2021-07-20T00:59:10+08:00, 2021-07-20T00:00:10-07:00, etc.
+	// 	15:04:05, 15:04:05.000, 15:04:05.000000, 15, 2017-01-01 15:04, 2021-07-20T00:59:10Z,
+	// 	2021-07-20T00:59:10+08:00, 2021-07-20T00:00:10-07:00, etc.
 	ApplyTimeRegexp = regexp.MustCompile(`(\s+|^\s*|T)\d{1,2}((:\d{1,2})*|((:\d{1,2}){2}\.(\d{3}|\d{6}|\d{9})))(\s*$|[Z+-])`)
 
 	// OnlyTimeRegexp is a regular expression that matches time formats such as:
-	// 15:04:05, 15, 15:04:05.000, 15:04:05.000000, etc.
+	// 	15:04:05, 15, 15:04:05.000, 15:04:05.000000, etc.
 	OnlyTimeRegexp = regexp.MustCompile(`^\s*\d{1,2}((:\d{1,2})*|((:\d{1,2}){2}\.(\d{3}|\d{6}|\d{9})))\s*$`)
 )
 
