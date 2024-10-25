@@ -484,3 +484,451 @@ func FormatTimex(t time.Time) []int {
 	year, month, day := t.Date()
 	return []int{t.Nanosecond(), sec, min, hour, day, int(month), year}
 }
+
+// BeginningOfMinute returns the current time rounded down to the beginning of the current minute.
+// It utilizes the With() function to achieve this. The resulting time will have seconds and nanoseconds set to zero.
+//
+// Returns:
+//   - A time.Time value representing the start of the current minute.
+//
+// Example:
+//
+//	beginning := BeginningOfMinute() // This will return the current time set to the start of the minute (e.g., 12:30:00).
+func BeginningOfMinute() time.Time {
+	return With(time.Now()).BeginningOfMinute()
+}
+
+// BeginningOfHour returns the current time rounded down to the beginning of the current hour.
+// This function resets the minute, second, and nanosecond components of the time to zero, providing
+// a time value that represents the exact start of the hour.
+//
+// It utilizes the With() function to obtain the current time and then applies the BeginningOfHour()
+// method to round it down.
+//
+// Returns:
+//   - A time.Time value representing the start of the current hour.
+//
+// Example:
+//
+//	beginning := BeginningOfHour() // This will return the current time set to the start of the hour (e.g., 12:00:00).
+func BeginningOfHour() time.Time {
+	return With(time.Now()).BeginningOfHour()
+}
+
+// BeginningOfDay returns the current time rounded down to the beginning of the current day.
+// This function resets the hour, minute, second, and nanosecond components of the time to zero,
+// providing a time value that represents the exact start of the day (midnight).
+//
+// It utilizes the With() function to obtain the current time and then applies the BeginningOfDay()
+// method to achieve this rounding.
+//
+// Returns:
+//   - A time.Time value representing the start of the current day (e.g., 00:00:00).
+//
+// Example:
+//
+//	beginning := BeginningOfDay() // This will return the current time set to the start of the day (e.g., 2023-10-25 00:00:00).
+func BeginningOfDay() time.Time {
+	return With(time.Now()).BeginningOfDay()
+}
+
+// BeginningOfWeek returns the current time rounded down to the beginning of the current week.
+// This function resets the hour, minute, second, and nanosecond components of the time to zero,
+// providing a time value that represents the exact start of the week (usually Sunday or Monday
+// depending on the locale).
+//
+// It utilizes the With() function to obtain the current time and then applies the BeginningOfWeek()
+// method to achieve this rounding.
+//
+// Returns:
+//   - A time.Time value representing the start of the current week (e.g., 00:00:00 on the first day of the week).
+//
+// Example:
+//
+//	beginning := BeginningOfWeek() // This will return the current time set to the start of the week (e.g., 2023-10-22 00:00:00 if Sunday is the start of the week).
+func BeginningOfWeek() time.Time {
+	return With(time.Now()).BeginningOfWeek()
+}
+
+// BeginningOfMonth returns the current time rounded down to the beginning of the current month.
+// This function resets the day, hour, minute, second, and nanosecond components of the time to zero,
+// providing a time value that represents the exact start of the month (the first day at midnight).
+//
+// It utilizes the With() function to obtain the current time and then applies the BeginningOfMonth()
+// method to achieve this rounding.
+//
+// Returns:
+//   - A time.Time value representing the start of the current month (e.g., 2023-10-01 00:00:00).
+//
+// Example:
+//
+//	beginning := BeginningOfMonth() // This will return the current time set to the start of the month (e.g., 2023-10-01 00:00:00).
+func BeginningOfMonth() time.Time {
+	return With(time.Now()).BeginningOfMonth()
+}
+
+// BeginningOfQuarter returns the current time rounded down to the beginning of the current quarter.
+// A quarter is a three-month period within the year, specifically:
+//   - Q1: January to March
+//   - Q2: April to June
+//   - Q3: July to September
+//   - Q4: October to December
+//
+// This function resets the day, hour, minute, second, and nanosecond components of the time to zero,
+// providing a time value that represents the exact start of the current quarter (the first day of the
+// quarter at midnight).
+//
+// It utilizes the With() function to obtain the current time and then applies the BeginningOfQuarter()
+// method to achieve this rounding.
+//
+// Returns:
+//   - A time.Time value representing the start of the current quarter (e.g., 2023-10-01 00:00:00
+//     if the current date is in Q4).
+//
+// Example:
+//
+//	beginning := BeginningOfQuarter() // This will return the current time set to the start of the current quarter (e.g., 2023-10-01 00:00:00 if it's the fourth quarter).
+func BeginningOfQuarter() time.Time {
+	return With(time.Now()).BeginningOfQuarter()
+}
+
+// BeginningOfYear returns the current time rounded down to the beginning of the current year.
+// This function resets the month, day, hour, minute, second, and nanosecond components of the time to zero,
+// providing a time value that represents the exact start of the year (January 1st at midnight).
+//
+// It utilizes the With() function to obtain the current time and then applies the BeginningOfYear()
+// method to achieve this rounding.
+//
+// Returns:
+//   - A time.Time value representing the start of the current year (e.g., 2023-01-01 00:00:00).
+//
+// Example:
+//
+//	beginning := BeginningOfYear() // This will return the current time set to the start of the year (e.g., 2023-01-01 00:00:00).
+func BeginningOfYear() time.Time {
+	return With(time.Now()).BeginningOfYear()
+}
+
+// EndOfMinute returns the current time rounded up to the end of the current minute.
+// This function resets the second and nanosecond components of the time to zero and then adds one minute,
+// providing a time value that represents the last moment of the current minute (59 seconds and 999999999 nanoseconds).
+//
+// It utilizes the With() function to obtain the current time and then applies the EndOfMinute()
+// method to achieve this rounding.
+//
+// Returns:
+//   - A time.Time value representing the end of the current minute (e.g., 12:30:59.999999999).
+//
+// Example:
+//
+//	end := EndOfMinute() // This will return the current time set to the end of the minute (e.g., 12:30:59.999999999).
+func EndOfMinute() time.Time {
+	return With(time.Now()).EndOfMinute()
+}
+
+// EndOfHour returns the current time rounded up to the end of the current hour.
+// This function resets the minute, second, and nanosecond components of the time to zero and then adds one hour,
+// providing a time value that represents the last moment of the current hour (59 minutes, 59 seconds, and 999999999 nanoseconds).
+//
+// It utilizes the With() function to obtain the current time and then applies the EndOfHour()
+// method to achieve this rounding.
+//
+// Returns:
+//   - A time.Time value representing the end of the current hour (e.g., 12:59:59.999999999).
+//
+// Example:
+//
+//	end := EndOfHour() // This will return the current time set to the end of the hour (e.g., 12:59:59.999999999).
+func EndOfHour() time.Time {
+	return With(time.Now()).EndOfHour()
+}
+
+// EndOfDay returns the current time rounded up to the end of the current day.
+// This function resets the hour, minute, second, and nanosecond components of the time to zero and then adds one day,
+// providing a time value that represents the last moment of the current day (23 hours, 59 minutes, 59 seconds, and 999999999 nanoseconds).
+//
+// It utilizes the With() function to obtain the current time and then applies the EndOfDay()
+// method to achieve this rounding.
+//
+// Returns:
+//   - A time.Time value representing the end of the current day (e.g., 2023-10-25 23:59:59.999999999).
+//
+// Example:
+//
+//	end := EndOfDay() // This will return the current time set to the end of the day (e.g., 2023-10-25 23:59:59.999999999).
+func EndOfDay() time.Time {
+	return With(time.Now()).EndOfDay()
+}
+
+// EndOfWeek returns the current time rounded up to the end of the current week.
+// This function resets the hour, minute, second, and nanosecond components of the time to zero and then adds one week,
+// providing a time value that represents the last moment of the current week (e.g., 23 hours, 59 minutes, 59 seconds, and 999999999 nanoseconds)
+// on the last day of the week (usually Saturday or Sunday, depending on the locale).
+//
+// It utilizes the With() function to obtain the current time and then applies the EndOfWeek()
+// method to achieve this rounding.
+//
+// Returns:
+//   - A time.Time value representing the end of the current week (e.g., 2023-10-29 23:59:59.999999999 if Sunday is the last day of the week).
+//
+// Example:
+//
+//	end := EndOfWeek() // This will return the current time set to the end of the week (e.g., 2023-10-29 23:59:59.999999999).
+func EndOfWeek() time.Time {
+	return With(time.Now()).EndOfWeek()
+}
+
+// EndOfMonth returns the current time rounded up to the end of the current month.
+// This function resets the day, hour, minute, second, and nanosecond components of the time to zero
+// and then adds one month, providing a time value that represents the last moment of the current month
+// (e.g., 23 hours, 59 minutes, 59 seconds, and 999999999 nanoseconds) on the last day of the month.
+//
+// It utilizes the With() function to obtain the current time and then applies the EndOfMonth()
+// method to achieve this rounding.
+//
+// Returns:
+//   - A time.Time value representing the end of the current month (e.g., 2023-10-31 23:59:59.999999999).
+//
+// Example:
+//
+//	end := EndOfMonth() // This will return the current time set to the end of the month (e.g., 2023-10-31 23:59:59.999999999).
+func EndOfMonth() time.Time {
+	return With(time.Now()).EndOfMonth()
+}
+
+// EndOfQuarter returns the current time rounded up to the end of the current quarter.
+// A quarter is defined as a three-month period within the year, specifically:
+//   - Q1: January to March
+//   - Q2: April to June
+//   - Q3: July to September
+//   - Q4: October to December
+//
+// This function resets the day, hour, minute, second, and nanosecond components of the time to zero
+// and then adds the number of months needed to reach the first day of the next quarter,
+// providing a time value that represents the last moment of the current quarter
+// (e.g., 23 hours, 59 minutes, 59 seconds, and 999999999 nanoseconds) on the last day of the quarter.
+//
+// It utilizes the With() function to obtain the current time and then applies the EndOfQuarter()
+// method to achieve this rounding.
+//
+// Returns:
+//   - A time.Time value representing the end of the current quarter (e.g., 2023-03-31 23:59:59.999999999
+//     if the current date is in Q1).
+//
+// Example:
+//
+//	end := EndOfQuarter() // This will return the current time set to the end of the current quarter (e.g., 2023-12-31 23:59:59.999999999 if it's the fourth quarter).
+func EndOfQuarter() time.Time {
+	return With(time.Now()).EndOfQuarter()
+}
+
+// EndOfYear returns the current time rounded up to the end of the current year.
+// This function resets the month, day, hour, minute, second, and nanosecond components of the time to zero
+// and then adds one year, providing a time value that represents the last moment of the current year
+// (e.g., 23 hours, 59 minutes, 59 seconds, and 999999999 nanoseconds) on December 31st.
+//
+// It utilizes the With() function to obtain the current time and then applies the EndOfYear()
+// method to achieve this rounding.
+//
+// Returns:
+//   - A time.Time value representing the end of the current year (e.g., 2023-12-31 23:59:59.999999999).
+//
+// Example:
+//
+//	end := EndOfYear() // This will return the current time set to the end of the current year (e.g., 2023-12-31 23:59:59.999999999).
+func EndOfYear() time.Time {
+	return With(time.Now()).EndOfYear()
+}
+
+// Monday returns the date and time of the most recent or upcoming Monday relative to the current time.
+// This function can take an optional string parameter to specify the desired format for the output,
+// but it defaults to the standard representation of time if no arguments are provided.
+//
+// It utilizes the With() function to obtain the current time and then applies the Monday()
+// method to determine the appropriate Monday date and time.
+//
+// Returns:
+//   - A time.Time value representing the most recent or upcoming Monday based on the current date and time.
+//     The output can vary depending on the optional format parameter.
+//
+// Example:
+//
+//	monday := Monday() // This will return the date and time for the next upcoming Monday (e.g., 2023-10-30 00:00:00).
+//	mondayFormatted := Monday("2006-01-02") // This will return the next Monday formatted as "YYYY-MM-DD".
+func Monday(s ...string) time.Time {
+	return With(time.Now()).Monday(s...)
+}
+
+// Sunday returns the date and time of the most recent or upcoming Sunday relative to the current time.
+// This function can take an optional string parameter to specify the desired format for the output,
+// but it defaults to the standard representation of time if no arguments are provided.
+//
+// It utilizes the With() function to obtain the current time and then applies the Sunday()
+// method to determine the appropriate Sunday date and time.
+//
+// Returns:
+//   - A time.Time value representing the most recent or upcoming Sunday based on the current date and time.
+//     The output can vary depending on the optional format parameter.
+//
+// Example:
+//
+//	sunday := Sunday() // This will return the date and time for the next upcoming Sunday (e.g., 2023-10-29 00:00:00).
+//	sundayFormatted := Sunday("2006-01-02") // This will return the next Sunday formatted as "YYYY-MM-DD".
+func Sunday(s ...string) time.Time {
+	return With(time.Now()).Sunday(s...)
+}
+
+// EndOfSunday returns the date and time representing the end of the most recent or upcoming Sunday
+// relative to the current time. This function resets the time to 23 hours, 59 minutes, 59 seconds,
+// and 999999999 nanoseconds, providing a time value that represents the last moment of Sunday.
+//
+// It utilizes the With() function to obtain the current time and then applies the EndOfSunday()
+// method to achieve this rounding.
+//
+// Returns:
+//   - A time.Time value representing the end of the most recent or upcoming Sunday based on the
+//     current date and time (e.g., 2023-10-29 23:59:59.999999999 if the current date is within that week).
+//
+// Example:
+//
+//	end := EndOfSunday() // This will return the date and time set to the end of the next Sunday (e.g., 2023-10-29 23:59:59.999999999).
+func EndOfSunday() time.Time {
+	return With(time.Now()).EndOfSunday()
+}
+
+// Quarter returns the current quarter of the year based on the current date and time.
+// A quarter is defined as a three-month period within the year, specifically:
+//   - Q1: January to March
+//   - Q2: April to June
+//   - Q3: July to September
+//   - Q4: October to December
+//
+// This function utilizes the With() function to obtain the current time and then applies the
+// Quarter() method to determine the current quarter.
+//
+// Returns:
+//   - A uint value representing the current quarter of the year (1, 2, 3, or 4).
+//
+// Example:
+//
+//	quarter := Quarter() // This will return the current quarter (e.g., 4 for October).
+func Quarter() uint {
+	return With(time.Now()).Quarter()
+}
+
+// Parse takes a variable number of string inputs and attempts to parse them into a time.Time value.
+// This function uses the With() function to obtain the current time as a reference point and then
+// applies the Parse() method to interpret the provided string(s) as time.
+//
+// The function can handle multiple formats and will return the first successfully parsed time value
+// along with any potential error encountered during parsing.
+//
+// Returns:
+//   - A time.Time value representing the parsed time if successful.
+//   - An error indicating any issues encountered during the parsing process, or nil if parsing was successful.
+//
+// Example:
+//
+//	timeValue, err := Parse("2023-10-25") // This will return the parsed time if the input string is in a valid format.
+//	if err != nil {
+//		// Handle the parsing error
+//	}
+func Parse(s ...string) (time.Time, error) {
+	return With(time.Now()).Parse(s...)
+}
+
+// ParseInLocation takes a variable number of string inputs and attempts to parse them into a time.Time value
+// based on a specified time zone location. This function utilizes the With() function to obtain the current
+// time in the provided location as a reference point and then applies the Parse() method to interpret
+// the provided string(s) as time.
+//
+// The function can handle multiple formats and will return the first successfully parsed time value
+// in the specified location, along with any potential error encountered during parsing.
+//
+// Parameters:
+//   - loc: A pointer to a time.Location struct that specifies the desired time zone for parsing.
+//   - s: A variadic parameter that accepts one or more strings to be parsed into a time.Time value.
+//
+// Returns:
+//   - A time.Time value representing the parsed time in the specified location if successful.
+//   - An error indicating any issues encountered during the parsing process, or nil if parsing was successful.
+//
+// Example:
+//
+//	timeValue, err := ParseInLocation(time.UTC, "2023-10-25") // This will return the parsed time in UTC if the input string is in a valid format.
+//	if err != nil {
+//		// Handle the parsing error
+//	}
+func ParseInLocation(loc *time.Location, s ...string) (time.Time, error) {
+	return With(time.Now().In(loc)).Parse(s...)
+}
+
+// MustParse takes a variable number of string inputs and attempts to parse them into a time.Time value.
+// This function uses the With() function to obtain the current time as a reference point and then
+// applies the MustParse() method to interpret the provided string(s) as time.
+//
+// Unlike the Parse function, MustParse will panic if the parsing fails, making it suitable for scenarios
+// where a valid time is expected and errors are not anticipated. If the input strings are in valid formats,
+// it returns the corresponding time.Time value.
+//
+// Parameters:
+//   - s: A variadic parameter that accepts one or more strings to be parsed into a time.Time value.
+//
+// Returns:
+//   - A time.Time value representing the parsed time if successful.
+//   - This function does not return an error; instead, it will panic if parsing fails.
+//
+// Example:
+//
+//	timeValue := MustParse("2023-10-25") // This will return the parsed time if the input string is in a valid format.
+//	// If the input is invalid, it will cause a panic.
+func MustParse(s ...string) time.Time {
+	return With(time.Now()).MustParse(s...)
+}
+
+// MustParseInLocation takes a variable number of string inputs and attempts to parse them into a time.Time value
+// based on a specified time zone location. This function utilizes the With() function to obtain the current
+// time in the provided location as a reference point and then applies the MustParse() method to interpret
+// the provided string(s) as time.
+//
+// Similar to MustParse, this function will panic if the parsing fails, making it suitable for scenarios
+// where a valid time is expected and errors are not anticipated. If the input strings are in valid formats,
+// it returns the corresponding time.Time value adjusted to the specified location.
+//
+// Parameters:
+//   - loc: A pointer to a time.Location struct that specifies the desired time zone for parsing.
+//   - s: A variadic parameter that accepts one or more strings to be parsed into a time.Time value.
+//
+// Returns:
+//   - A time.Time value representing the parsed time in the specified location if successful.
+//   - This function does not return an error; instead, it will panic if parsing fails.
+//
+// Example:
+//
+//	timeValue := MustParseInLocation(time.UTC, "2023-10-25") // This will return the parsed time in UTC if the input string is in a valid format.
+//	// If the input is invalid, it will cause a panic.
+func MustParseInLocation(loc *time.Location, s ...string) time.Time {
+	return With(time.Now().In(loc)).MustParse(s...)
+}
+
+// Between takes two string inputs representing time values and checks if the current time falls
+// within the range defined by those two times. This function utilizes the With() function to obtain
+// the current time as a reference point and then applies the Between() method to evaluate the range.
+//
+// The function assumes that the provided time strings are in a valid format. If the current time
+// is greater than or equal to time1 and less than or equal to time2, it returns true; otherwise, it returns false.
+//
+// Parameters:
+//   - time1: A string representing the start of the time range.
+//   - time2: A string representing the end of the time range.
+//
+// Returns:
+//   - A boolean value indicating whether the current time is within the specified range (inclusive).
+//
+// Example:
+//
+//	isWithin := Between("2023-10-20", "2023-10-30") // This will return true if the current time is between these two dates.
+//	isWithin := Between("2023-10-25", "2023-10-26") // This will return true if the current date is exactly 2023-10-25.
+func Between(time1, time2 string) bool {
+	return With(time.Now()).Between(time1, time2)
+}
