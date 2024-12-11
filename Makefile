@@ -38,3 +38,8 @@ deps-upgrade:
 # Removes all items from the Go module cache
 deps-clean-cache:
 	go clean -modcache
+
+# Running code coverage
+# Generates code coverage report and logs the results
+coverage:
+	sh ./sh/go_deps.sh
