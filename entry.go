@@ -22,7 +22,7 @@ import "time"
 //	now := time.Now()
 //	startOfDay := BeginOfDay(now) // This will set the time to midnight of the current day.
 func BeginOfDay(v time.Time) time.Time {
-	return time.Date(v.Year(), v.Month(), v.Day(), 0, 0, 0, 0, v.Local().Location())
+	return time.Date(v.Year(), v.Month(), v.Day(), 0, 0, 0, 0, v.Location())
 }
 
 // FEndOfDay takes a time value `v` and returns a new time.Time object
@@ -46,7 +46,7 @@ func BeginOfDay(v time.Time) time.Time {
 //	now := time.Now()
 //	endOfDay := FEndOfDay(now) // This will set the time to the last second of the current day.
 func FEndOfDay(v time.Time) time.Time {
-	return time.Date(v.Year(), v.Month(), v.Day(), 23, 59, 59, 0, v.Local().Location())
+	return time.Date(v.Year(), v.Month(), v.Day(), 23, 59, 59, 0, v.Location())
 }
 
 // PrevBeginOfDay takes a time value `v` and an integer `day` representing the number of days to go back.
@@ -125,8 +125,11 @@ func PrevEndOfDay(v time.Time, day int) time.Time {
 //	nyTime, err := SetTimezone(now, "America/New_York") // This will convert the current time to New York's timezone.
 func SetTimezone(v time.Time, tz string) (time.Time, error) {
 	loc, err := time.LoadLocation(tz)
+	if err != nil {
+		return v, err
+	}
 	now := v.In(loc)
-	return now, err
+	return now, nil
 }
 
 // AdjustTimezone takes a time value `v` and a string `tz` representing the target timezone,
