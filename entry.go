@@ -932,3 +932,65 @@ func MustParseInLocation(loc *time.Location, s ...string) time.Time {
 func Between(time1, time2 string) bool {
 	return With(time.Now()).Between(time1, time2)
 }
+
+// FormatRFC formats the time using the provided layout.
+//
+// Parameters:
+//   - `layout`: A TimeFormatRFC value representing the layout to use for formatting.
+//
+// Returns:
+//   - A string representing the formatted time.
+//
+// Example:
+//
+//	formatted := FormatRFC(TimeFormat20060102T150405) // Returns the formatted time in the format "2023-08-15 13:45:30".
+func FormatRFC(layout TimeFormatRFC) string {
+	return With(time.Now()).FormatRFC(layout)
+}
+
+// FormatRFCshort formats the time using the provided layout.
+//
+// Parameters:
+//   - `layout`: A TimeRFC value representing the layout to use for formatting.
+//
+// Returns:
+//   - A string representing the formatted time.
+//
+// Example:
+//
+//	formatted := FormatRFCshort(TimeRFC01T150405) // Returns the formatted time in the format "13:45:30".
+func FormatRFCshort(layout TimeRFC) string {
+	return With(time.Now()).FormatRFCshort(layout)
+}
+
+// FormatRFC formats the time using the provided layout.
+//
+// Parameters:
+//   - `v`: A time.Time value representing the time to format.
+//   - `layout`: A TimeFormatRFC value representing the layout to use for formatting.
+//
+// Returns:
+//   - A string representing the formatted time.
+//
+// Example:
+//
+//	formatted := FormatRFC(v, TimeFormat20060102T150405) // Returns the formatted time in the format "2023-08-15 13:45:30".
+func FFormatRFC(v time.Time, layout TimeFormatRFC) string {
+	return With(v).FormatRFC(layout)
+}
+
+// FormatRFCshort formats the time using the provided layout.
+//
+// Parameters:
+//   - `v`: A time.Time value representing the time to format.
+//   - `layout`: A TimeRFC value representing the layout to use for formatting.
+//
+// Returns:
+//   - A string representing the formatted time.
+//
+// Example:
+//
+//	formatted := FormatRFCshort(v, TimeRFC01T150405) // Returns the formatted time in the format "13:45:30".
+func FFormatRFCshort(v time.Time, layout TimeRFC) string {
+	return With(v).FormatRFCshort(layout)
+}

@@ -718,6 +718,38 @@ func (t *Timex) Between(begin, end string) bool {
 	return t.After(beginTime) && t.Before(endTime)
 }
 
+// FormatRFC formats the time using the provided layout.
+//
+// Parameters:
+//   - `layout`: A TimeFormatRFC value representing the layout to use for formatting.
+//
+// Returns:
+//   - A string representing the formatted time.
+//
+// Example:
+//
+//	t := Timex{Time: time.Now()}
+//	formatted := t.FormatRFC(TimeFormat20060102T150405) // Returns the formatted time in the format "2023-08-15 13:45:30".
+func (t *Timex) FormatRFC(layout TimeFormatRFC) string {
+	return t.Time.Format(string(layout))
+}
+
+// FormatRFCshort formats the time using the provided layout.
+//
+// Parameters:
+//   - `layout`: A TimeRFC value representing the layout to use for formatting.
+//
+// Returns:
+//   - A string representing the formatted time.
+//
+// Example:
+//
+//	t := Timex{Time: time.Now()}
+//	formatted := t.FormatRFCshort(TimeRFC01T150405) // Returns the formatted time in the format "13:45:30".
+func (t *Timex) FormatRFCshort(layout TimeRFC) string {
+	return t.Time.Format(string(layout))
+}
+
 // parseWithFormat attempts to parse a given date/time string `s` using a series of predefined formats
 // specified in the `TimeFormats` slice of the Timex instance. It tries to parse the string in the provided
 // `location` and returns the parsed time value or an error if parsing fails.
