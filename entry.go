@@ -25,7 +25,7 @@ func BeginOfDay(v time.Time) time.Time {
 	return time.Date(v.Year(), v.Month(), v.Day(), 0, 0, 0, 0, v.Local().Location())
 }
 
-// EndOfDayN takes a time value `v` and returns a new time.Time object
+// FEndOfDay takes a time value `v` and returns a new time.Time object
 // representing the end of the day for that date.
 //
 // The function uses the time.Date method to set the time to the last possible second
@@ -44,8 +44,8 @@ func BeginOfDay(v time.Time) time.Time {
 // Example:
 //
 //	now := time.Now()
-//	endOfDay := EndOfDayN(now) // This will set the time to the last second of the current day.
-func EndOfDayN(v time.Time) time.Time {
+//	endOfDay := FEndOfDay(now) // This will set the time to the last second of the current day.
+func FEndOfDay(v time.Time) time.Time {
 	return time.Date(v.Year(), v.Month(), v.Day(), 23, 59, 59, 0, v.Local().Location())
 }
 
@@ -96,7 +96,7 @@ func PrevBeginOfDay(v time.Time, day int) time.Time {
 //	twoDaysAgoEnd := PrevEndOfDay(now, 2) // This will return the end of the day two days before the current date.
 func PrevEndOfDay(v time.Time, day int) time.Time {
 	last := v.AddDate(0, 0, -day)
-	return EndOfDayN(last)
+	return FEndOfDay(last)
 }
 
 // SetTimezone takes a time value `v` and a string `tz` representing the target timezone.
@@ -993,4 +993,32 @@ func FFormatRFC(v time.Time, layout TimeFormatRFC) string {
 //	formatted := FormatRFCshort(v, TimeRFC01T150405) // Returns the formatted time in the format "13:45:30".
 func FFormatRFCshort(v time.Time, layout TimeRFC) string {
 	return With(v).FormatRFCshort(layout)
+}
+
+// DefaultFormatRFC formats the time using the default layout.
+//
+// Parameters:
+//   - `v`: A time.Time value representing the time to format.
+//
+// Returns:
+//   - A string representing the formatted time.
+//
+// Example:
+//
+//	v := time.Date(2023, time.August, 15, 13, 45, 30, 0, time.UTC)
+//	formatted := DefaultFormatRFC(v) // Returns the formatted time in the default format.
+func FDefaultFormatRFC(v time.Time) string {
+	return With(v).DefaultFormatRFC()
+}
+
+// DefaultFormatRFC formats the current time using the default layout.
+//
+// Returns:
+//   - A string representing the formatted time.
+//
+// Example:
+//
+//	formatted := DefaultFormatRFC() // Returns the formatted current time in the default format.
+func DefaultFormatRFC() string {
+	return FDefaultFormatRFC(time.Now())
 }
