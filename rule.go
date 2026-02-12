@@ -12,7 +12,7 @@ import "time"
 //	rule := NewRule() // This creates a new rule with the default configuration.
 //	rule.WithWeekStartDay(time.Monday) // This sets the week start day to Monday.
 //	rule.WithTimeFormats([]string{"2006-01-02 15:04:05"}) // This sets the time formats to the default time formats.
-//	rule.WithTimeLocation(time.UTC) // This sets the time location to UTC.
+//	rule.WithLocation(time.UTC) // This sets the time location to UTC.
 //	return rule
 func NewRule() *Rule {
 	return &Rule{
