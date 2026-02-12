@@ -1,3 +1,6 @@
+LOG_DIR=logs
+
+# Makefile for managing Go project tasks such as running, building, testing, and maintaining dependencies.
 .PHONY: run build test tidy deps-upgrade deps-clean-cache
 
 # ==============================================================================
@@ -43,3 +46,10 @@ deps-clean-cache:
 # Generates code coverage report and logs the results
 coverage:
 	sh ./sh/go_deps.sh
+
+# Generating project file tree
+# Creates a text file representing the project's directory structure, excluding certain directories
+tree:
+	mkdir -p $(LOG_DIR)
+	tree -I ".gradle|.idea|build|logs|.vscode|.git|.github|vendor" > ./$(LOG_DIR)/tree_source_oss.txt
+	cat ./$(LOG_DIR)/tree_source_oss.txt
