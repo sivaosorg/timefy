@@ -752,6 +752,264 @@ func (t *Timex) DefaultFormatRFC() string {
 	return t.FormatRFC(TimeFormat20060102150405999999)
 }
 
+// DurationInDays returns the duration between the current time and another time in days.
+//
+// Parameters:
+//   - `other`: The other time to calculate the duration from.
+//
+// Returns:
+//   - An integer representing the duration in days.
+//
+// Example:
+//
+//	t := Timex{Time: time.Now()}
+//	formatted := t.DurationInDays(time.Now().AddDate(0, 0, 1)) // Returns 1
+func (t *Timex) DurationInDays(other time.Time) int {
+	return int(t.Sub(other).Hours() / 24)
+}
+
+// DurationInWeeks returns the duration between the current time and another time in weeks.
+//
+// Parameters:
+//   - `other`: The other time to calculate the duration from.
+//
+// Returns:
+//   - An integer representing the duration in weeks.
+//
+// Example:
+//
+//	t := Timex{Time: time.Now()}
+//	formatted := t.DurationInWeeks(time.Now().AddDate(0, 0, 7)) // Returns 1
+func (t *Timex) DurationInWeeks(other time.Time) int {
+	return t.DurationInDays(other) / 7
+}
+
+// DurationInMonths returns the duration between the current time and another time in months.
+//
+// Parameters:
+//   - `other`: The other time to calculate the duration from.
+//
+// Returns:
+//   - An integer representing the duration in months.
+//
+// Example:
+//
+//	t := Timex{Time: time.Now()}
+//	formatted := t.DurationInMonths(time.Now().AddDate(0, 1, 0)) // Returns 1
+func (t *Timex) DurationInMonths(other time.Time) int {
+	years := t.Year() - other.Year()
+	months := int(t.Month() - other.Month())
+	return years*12 + months
+}
+
+// DurationInYears returns the duration between the current time and another time in years.
+//
+// Parameters:
+//   - `other`: The other time to calculate the duration from.
+//
+// Returns:
+//   - An integer representing the duration in years.
+//
+// Example:
+//
+//	t := Timex{Time: time.Now()}
+//	formatted := t.DurationInYears(time.Now().AddDate(1, 0, 0)) // Returns 1
+func (t *Timex) DurationInYears(other time.Time) int {
+	return t.Year() - other.Year()
+}
+
+// IsWeekend checks if the current time is a weekend (Saturday or Sunday).
+//
+// Returns:
+//   - A boolean value indicating whether the current time is a weekend.
+//
+// Example:
+//
+//	t := Timex{Time: time.Now()}
+//	isWeekend := t.IsWeekend() // Returns true if the current time is a weekend
+func (t *Timex) IsWeekend() bool {
+	weekday := t.Weekday()
+	return weekday == time.Saturday || weekday == time.Sunday
+}
+
+// IsWeekday checks if the current time is a weekday (Monday to Friday).
+//
+// Returns:
+//   - A boolean value indicating whether the current time is a weekday.
+//
+// Example:
+//
+//	t := Timex{Time: time.Now()}
+//	isWeekday := t.IsWeekday() // Returns true if the current time is a weekday
+func (t *Timex) IsWeekday() bool {
+	return !t.IsWeekend()
+}
+
+// IsBefore checks if the current time is before the specified time.
+//
+// Parameters:
+//   - `other`: The other time to compare against.
+//
+// Returns:
+//   - A boolean value indicating whether the current time is before the specified time.
+//
+// Example:
+//
+//	t := Timex{Time: time.Now()}
+//	isBefore := t.IsBefore(time.Now().AddDate(0, 0, 1)) // Returns true if the current time is before the specified time
+func (t *Timex) IsBefore(other time.Time) bool {
+	return t.Time.Before(other)
+}
+
+// IsAfter checks if the current time is after the specified time.
+//
+// Parameters:
+//   - `other`: The other time to compare against.
+//
+// Returns:
+//   - A boolean value indicating whether the current time is after the specified time.
+//
+// Example:
+//
+//	t := Timex{Time: time.Now()}
+//	isAfter := t.IsAfter(time.Now().AddDate(0, 0, 1)) // Returns true if the current time is after the specified time
+func (t *Timex) IsAfter(other time.Time) bool {
+	return t.Time.After(other)
+}
+
+// IsBetween checks if the current time is between the specified start and end times (inclusive).
+//
+// Parameters:
+//   - `start`: The start time of the range.
+//   - `end`: The end time of the range.
+//
+// Returns:
+//   - A boolean value indicating whether the current time is between the specified start and end times.
+//
+// Example:
+//
+//	t := Timex{Time: time.Now()}
+//	isBetween := t.IsBetween(time.Now().AddDate(0, 0, 1), time.Now().AddDate(0, 0, 2)) // Returns true if the current time is between the specified start and end times
+func (t *Timex) IsBetween(start, end time.Time) bool {
+	return (t.Equal(start) || t.After(start)) && (t.Equal(end) || t.Before(end))
+}
+
+// IsSameDay checks if the current time is on the same day as the specified time.
+//
+// Parameters:
+//   - `other`: The other time to compare against.
+//
+// Returns:
+//   - A boolean value indicating whether the current time is on the same day as the specified time.
+//
+// Example:
+//
+//	t := Timex{Time: time.Now()}
+//	isSameDay := t.IsSameDay(time.Now().AddDate(0, 0, 1)) // Returns true if the current time is on the same day as the specified time
+func (t *Timex) IsSameDay(other time.Time) bool {
+	return t.Year() == other.Year() && t.YearDay() == other.YearDay()
+}
+
+// IsSameMonth checks if the current time is on the same month as the specified time.
+//
+// Parameters:
+//   - `other`: The other time to compare against.
+//
+// Returns:
+//   - A boolean value indicating whether the current time is on the same month as the specified time.
+//
+// Example:
+//
+//	t := Timex{Time: time.Now()}
+//	isSameMonth := t.IsSameMonth(time.Now().AddDate(0, 1, 0)) // Returns true if the current time is on the same month as the specified time
+func (t *Timex) IsSameMonth(other time.Time) bool {
+	return t.Year() == other.Year() && t.Month() == other.Month()
+}
+
+// IsSameYear checks if the current time is on the same year as the specified time.
+//
+// Parameters:
+//   - `other`: The other time to compare against.
+//
+// Returns:
+//   - A boolean value indicating whether the current time is on the same year as the specified time.
+//
+// Example:
+//
+//	t := Timex{Time: time.Now()}
+//	isSameYear := t.IsSameYear(time.Now().AddDate(1, 0, 0)) // Returns true if the current time is on the same year as the specified time
+func (t *Timex) IsSameYear(other time.Time) bool {
+	return t.Year() == other.Year()
+}
+
+// IsToday checks if the current time is today.
+//
+// Returns:
+//   - A boolean value indicating whether the current time is today.
+//
+// Example:
+//
+//	t := Timex{Time: time.Now()}
+//	isToday := t.IsToday() // Returns true if the current time is today
+func (t *Timex) IsToday() bool {
+	now := time.Now()
+	return t.IsSameDay(now)
+}
+
+// IsYesterday checks if the current time is yesterday.
+//
+// Returns:
+//   - A boolean value indicating whether the current time is yesterday.
+//
+// Example:
+//
+//	t := Timex{Time: time.Now()}
+//	isYesterday := t.IsYesterday() // Returns true if the current time is yesterday
+func (t *Timex) IsYesterday() bool {
+	yesterday := time.Now().AddDate(0, 0, -1)
+	return t.IsSameDay(yesterday)
+}
+
+// IsTomorrow checks if the current time is tomorrow.
+//
+// Returns:
+//   - A boolean value indicating whether the current time is tomorrow.
+//
+// Example:
+//
+//	t := Timex{Time: time.Now()}
+//	isTomorrow := t.IsTomorrow() // Returns true if the current time is tomorrow
+func (t *Timex) IsTomorrow() bool {
+	tomorrow := time.Now().AddDate(0, 0, 1)
+	return t.IsSameDay(tomorrow)
+}
+
+// IsPast checks if the current time is in the past.
+//
+// Returns:
+//   - A boolean value indicating whether the current time is in the past.
+//
+// Example:
+//
+//	t := Timex{Time: time.Now()}
+//	isPast := t.IsPast() // Returns true if the current time is in the past
+func (t *Timex) IsPast() bool {
+	return t.Before(time.Now())
+}
+
+// IsFuture checks if the current time is in the future.
+//
+// Returns:
+//   - A boolean value indicating whether the current time is in the future.
+//
+// Example:
+//
+//	t := Timex{Time: time.Now()}
+//	isFuture := t.IsFuture() // Returns true if the current time is in the future
+func (t *Timex) IsFuture() bool {
+	return t.After(time.Now())
+}
+
 // parseWithFormat attempts to parse a given date/time string `s` using a series of predefined formats
 // specified in the `TimeFormats` slice of the Timex instance. It tries to parse the string in the provided
 // `location` and returns the parsed time value or an error if parsing fails.
