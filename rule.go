@@ -122,3 +122,70 @@ func (c *Rule) ApplyLocalLoc() *Rule {
 	c.timeLocation = time.Local
 	return c
 }
+
+// AppendTimeFormat appends the time formats.
+//
+// Parameters:
+//   - `format`: A variadic list of strings representing the time formats to append.
+//
+// Returns:
+//   - A pointer to a `Rule` struct, which includes the updated configuration.
+//
+// Example:
+//
+//	rule := NewRule() // This creates a new rule with the default configuration.
+//	rule.AppendTimeFormat("2006-01-02 15:04:05") // This appends the time format "2006-01-02 15:04:05".
+//	return rule
+func (c *Rule) AppendTimeFormat(format ...string) *Rule {
+	if len(format) == 0 {
+		return c
+	}
+	c.timeFormats = append(c.timeFormats, format...)
+	return c
+}
+
+// AppendTimeFormatRFC appends the time formats RFC.
+//
+// Parameters:
+//   - `format`: A variadic list of TimeFormatRFC values representing the time formats to append.
+//
+// Returns:
+//   - A pointer to a `Rule` struct, which includes the updated configuration.
+//
+// Example:
+//
+//	rule := NewRule() // This creates a new rule with the default configuration.
+//	rule.AppendTimeFormatRFC(TimeFormat20060102T150405999999, TimeFormat20060102T150405) // This appends the time formats "2006-01-02T15:04:05.999999" and "2006-01-02T15:04:05".
+//	return rule
+func (c *Rule) AppendTimeFormatRFC(format ...TimeFormatRFC) *Rule {
+	if len(format) == 0 {
+		return c
+	}
+	for _, f := range format {
+		c.timeFormats = append(c.timeFormats, string(f))
+	}
+	return c
+}
+
+// AppendTimeFormatRFCshort appends the time formats RFC short.
+//
+// Parameters:
+//   - `format`: A variadic list of strings representing the time formats to append.
+//
+// Returns:
+//   - A pointer to a `Rule` struct, which includes the updated configuration.
+//
+// Example:
+//
+//	rule := NewRule() // This creates a new rule with the default configuration.
+//	rule.AppendTimeFormatRFCshort(TimeRFC01T150405) // This appends the time format "15:04:05".
+//	return rule
+func (c *Rule) AppendTimeFormatRFCshort(format ...TimeRFC) *Rule {
+	if len(format) == 0 {
+		return c
+	}
+	for _, f := range format {
+		c.timeFormats = append(c.timeFormats, string(f))
+	}
+	return c
+}
