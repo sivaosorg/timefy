@@ -25,14 +25,8 @@ import (
 //	t := time.Now()
 //	timex := With(t) // This wraps the current time into a Timex object with the default configuration.
 func With(v time.Time) *Timex {
-	c := DefaultConfig
-	if c == nil {
-		c = &Config{
-			WeekStartDay: WeekStartDay,
-			TimeFormats:  TimeFormats,
-		}
-	}
-	return &Timex{Time: v, Config: c}
+	rule := NewRule()
+	return &Timex{Time: v, Rule: rule}
 }
 
 // New creates a new Timex object for the provided time value `v`.
@@ -74,8 +68,8 @@ func New(v time.Time) *Timex {
 //	customConfig := &Config{WeekStartDay: time.Monday}
 //	t := time.Now()
 //	timex := customConfig.With(t) // This creates a Timex object with the custom configuration.
-func (c *Config) With(v time.Time) *Timex {
-	return &Timex{Time: v, Config: c}
+func (c *Rule) With(v time.Time) *Timex {
+	return &Timex{Time: v, Rule: c}
 }
 
 // Parse attempts to parse a given set of string representations of time using the current `Config`.
@@ -103,11 +97,11 @@ func (c *Config) With(v time.Time) *Timex {
 //
 //	config := &Config{}
 //	parsedTime, err := config.Parse("2023-10-24T12:00:00") // Parses using the local time zone.
-func (c *Config) Parse(s ...string) (time.Time, error) {
-	if c.TimeLocation == nil {
+func (c *Rule) Parse(s ...string) (time.Time, error) {
+	if c.timeLocation == nil {
 		return c.With(time.Now()).Parse(s...)
 	} else {
-		return c.With(time.Now().In(c.TimeLocation)).Parse(s...)
+		return c.With(time.Now().In(c.timeLocation)).Parse(s...)
 	}
 }
 
@@ -136,11 +130,11 @@ func (c *Config) Parse(s ...string) (time.Time, error) {
 //
 //	config := &Config{}
 //	parsedTime := config.MustParse("2023-10-24T12:00:00") // Parses using the local time zone, panicking on failure.
-func (c *Config) MustParse(s ...string) time.Time {
-	if c.TimeLocation == nil {
+func (c *Rule) MustParse(s ...string) time.Time {
+	if c.timeLocation == nil {
 		return c.With(time.Now()).MustParse(s...)
 	} else {
-		return c.With(time.Now().In(c.TimeLocation)).MustParse(s...)
+		return c.With(time.Now().In(c.timeLocation)).MustParse(s...)
 	}
 }
 
@@ -226,8 +220,8 @@ func (t *Timex) BeginningOfDay() time.Time {
 func (t *Timex) BeginningOfWeek() time.Time {
 	day := t.BeginningOfDay()
 	weekday := int(day.Weekday())
-	if t.WeekStartDay != time.Sunday {
-		weekStartDayInt := int(t.WeekStartDay)
+	if t.weekStartDay != time.Sunday {
+		weekStartDayInt := int(t.weekStartDay)
 		if weekday < weekStartDayInt {
 			weekday = weekday + 7 - weekStartDayInt
 		} else {
@@ -778,7 +772,7 @@ func (t *Timex) FormatRFCshort(layout TimeRFC) string {
 // Note:
 //   - The function will return the first successfully parsed time value and ignore any subsequent formats.
 func (t *Timex) parseWithFormat(s string, location *time.Location) (v time.Time, err error) {
-	for _, format := range t.TimeFormats {
+	for _, format := range t.timeFormats {
 		v, err = time.ParseInLocation(format, s, location)
 
 		if err == nil {

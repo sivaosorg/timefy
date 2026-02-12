@@ -2,15 +2,18 @@ package timefy
 
 import "time"
 
-// Config configuration for now package
-type Config struct {
-	WeekStartDay time.Weekday   `json:"week_start_day,omitempty"`
-	TimeLocation *time.Location `json:"time_location,omitempty"`
-	TimeFormats  []string       `json:"time_formats,omitempty"`
+// Rule rule for timefy
+// weekStartDay set week start day, default is sunday
+// timeLocation set time location, default is local
+// timeFormats set time formats, default is []string{"2006-01-02 15:04:05"}
+type Rule struct {
+	weekStartDay time.Weekday
+	timeLocation *time.Location
+	timeFormats  []string
 }
 
-// Timex now struct
+// Timex struct
 type Timex struct {
 	time.Time
-	*Config
+	*Rule
 }

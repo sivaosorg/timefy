@@ -12,9 +12,6 @@ type ZoneRFC string
 // WeekStartDay set week start day, default is sunday
 var WeekStartDay = time.Sunday
 
-// DefaultConfig default config
-var DefaultConfig *Config
-
 const (
 	// Time in format 15:04:05,
 	//	e.g., 13:45:30
