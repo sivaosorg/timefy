@@ -101,17 +101,12 @@ import (
 
 func main() {
 	// time based on configuration
-	location, _ := time.LoadLocation("Asia/Ho_Chi_Minh")
-	conf := &timefy.Config{
-		WeekStartDay: time.Monday,
-		TimeLocation: location,
-		TimeFormats:  []string{"2006-01-02 15:04:05"},
-	}
-	t := time.Date(2025, 01, 15, 17, 51, 49, 123456789, time.Now().Location())
+	rule := timefy.NewRule().WithLocationRFC(timefy.DefaultTimezoneVietnam)
+	t = time.Date(2025, 01, 15, 17, 51, 49, 123456789, time.Now().Location())
 	fmt.Println(t)                              // 2025-01-15 17:51:49.123456789 +0700 +07
-	fmt.Println(conf.With(t).BeginningOfWeek()) // 2025-01-13 00:00:00 +0700 +07
-	v, _ := conf.Parse("2005-11-12 22:14:01")
-	fmt.Println(v) // 2005-11-12 22:14:01 +0700 +07
+	fmt.Println(rule.With(t).BeginningOfWeek()) // 2025-01-12 00:00:00 +0700 +07
+	v, _ := rule.Parse("2025-11-12 22:14:01")
+	fmt.Println(v) // 2025-11-12 22:14:01 +0700 +07
 }
 ```
 

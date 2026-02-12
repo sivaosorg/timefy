@@ -744,6 +744,14 @@ func (t *Timex) FormatRFCshort(layout TimeRFC) string {
 	return t.Time.Format(string(layout))
 }
 
+// DefaultFormatRFC formats the time using a default layout that includes the date and time with nanosecond precision.
+//
+// Returns:
+//   - A string representing the formatted time in the default RFC format.
+func (t *Timex) DefaultFormatRFC() string {
+	return t.FormatRFC(TimeFormat20060102150405999999)
+}
+
 // parseWithFormat attempts to parse a given date/time string `s` using a series of predefined formats
 // specified in the `TimeFormats` slice of the Timex instance. It tries to parse the string in the provided
 // `location` and returns the parsed time value or an error if parsing fails.
