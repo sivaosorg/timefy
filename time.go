@@ -499,6 +499,206 @@ func (t *Timex) Monday(s ...string) time.Time {
 	return parseTime.AddDate(0, 0, -weekday+1)
 }
 
+// Tuesday returns a new time.Time value representing the most recent Tuesday at the start of the week
+// based on the provided date string(s) or the current date if no date strings are provided.
+//
+// If a date string is provided, it parses the date using the Timex `Parse` method. If no string is provided,
+// the function defaults to the start of the current day. It then determines the weekday of the parsed date.
+// If the weekday is Sunday (represented by 0), it adjusts to be the seventh day for calculation purposes.
+// The function finally subtracts the necessary days to reach the last Tuesday.
+//
+// Parameters:
+//   - s ...string: Optional date string(s) to parse; if none are provided, it defaults to today.
+//
+// Returns:
+//   - A `time.Time` value representing the date and time at the start of the last Tuesday.
+//
+// Example:
+//
+//	t := Timex{Time: time.Now()}
+//	lastTuesday := t.Tuesday() // Returns the start of the most recent Tuesday.
+//
+// Note:
+//
+//	If parsing fails, the function will panic with an error.
+func (t *Timex) Tuesday(s ...string) time.Time {
+	var parseTime time.Time
+	var err error
+	if len(s) > 0 {
+		parseTime, err = t.Parse(s...)
+		if err != nil {
+			panic(err)
+		}
+	} else {
+		parseTime = t.BeginningOfDay()
+	}
+	weekday := int(parseTime.Weekday())
+	if weekday == 0 {
+		weekday = 7
+	}
+	return parseTime.AddDate(0, 0, -weekday+2)
+}
+
+// Wednesday returns a new time.Time value representing the most recent Wednesday at the start of the week
+// based on the provided date string(s) or the current date if no date strings are provided.
+//
+// If a date string is provided, it parses the date using the Timex `Parse` method. If no string is provided,
+// the function defaults to the start of the current day. It then determines the weekday of the parsed date.
+// If the weekday is Sunday (represented by 0), it adjusts to be the seventh day for calculation purposes.
+// The function finally subtracts the necessary days to reach the last Wednesday.
+//
+// Parameters:
+//   - s ...string: Optional date string(s) to parse; if none are provided, it defaults to today.
+//
+// Returns:
+//   - A `time.Time` value representing the date and time at the start of the last Wednesday.
+//
+// Example:
+//
+//	t := Timex{Time: time.Now()}
+//	lastWednesday := t.Wednesday() // Returns the start of the most recent Wednesday.
+//
+// Note:
+//
+//	If parsing fails, the function will panic with an error.
+func (t *Timex) Wednesday(s ...string) time.Time {
+	var parseTime time.Time
+	var err error
+	if len(s) > 0 {
+		parseTime, err = t.Parse(s...)
+		if err != nil {
+			panic(err)
+		}
+	} else {
+		parseTime = t.BeginningOfDay()
+	}
+	weekday := int(parseTime.Weekday())
+	if weekday == 0 {
+		weekday = 7
+	}
+	return parseTime.AddDate(0, 0, -weekday+3)
+}
+
+// Thursday returns a new time.Time value representing the most recent Thursday at the start of the week
+// based on the provided date string(s) or the current date if no date strings are provided.
+//
+// If a date string is provided, it parses the date using the Timex `Parse` method. If no string is provided,
+// the function defaults to the start of the current day. It then determines the weekday of the parsed date.
+// If the weekday is Sunday (represented by 0), it adjusts to be the seventh day for calculation purposes.
+// The function finally subtracts the necessary days to reach the last Thursday.
+//
+// Parameters:
+//   - s ...string: Optional date string(s) to parse; if none are provided, it defaults to today.
+//
+// Returns:
+//   - A `time.Time` value representing the date and time at the start of the last Thursday.
+//
+// Example:
+//
+//	t := Timex{Time: time.Now()}
+//	lastThursday := t.Thursday() // Returns the start of the most recent Thursday.
+//
+// Note:
+//
+//	If parsing fails, the function will panic with an error.
+func (t *Timex) Thursday(s ...string) time.Time {
+	var parseTime time.Time
+	var err error
+	if len(s) > 0 {
+		parseTime, err = t.Parse(s...)
+		if err != nil {
+			panic(err)
+		}
+	} else {
+		parseTime = t.BeginningOfDay()
+	}
+	weekday := int(parseTime.Weekday())
+	if weekday == 0 {
+		weekday = 7
+	}
+	return parseTime.AddDate(0, 0, -weekday+4)
+}
+
+// Friday returns a new time.Time value representing the most recent Friday at the start of the week
+// based on the provided date string(s) or the current date if no date strings are provided.
+//
+// If a date string is provided, it parses the date using the Timex `Parse` method. If no string is provided,
+// the function defaults to the start of the current day. It then determines the weekday of the parsed date.
+// If the weekday is Sunday (represented by 0), it adjusts to be the seventh day for calculation purposes.
+// The function finally subtracts the necessary days to reach the last Friday.
+//
+// Parameters:
+//   - s ...string: Optional date string(s) to parse; if none are provided, it defaults to today.
+//
+// Returns:
+//   - A `time.Time` value representing the date and time at the start of the last Friday.
+//
+// Example:
+//
+//	t := Timex{Time: time.Now()}
+//	lastFriday := t.Friday() // Returns the start of the most recent Friday.
+//
+// Note:
+//
+//	If parsing fails, the function will panic with an error.
+func (t *Timex) Friday(s ...string) time.Time {
+	var parseTime time.Time
+	var err error
+	if len(s) > 0 {
+		parseTime, err = t.Parse(s...)
+		if err != nil {
+			panic(err)
+		}
+	} else {
+		parseTime = t.BeginningOfDay()
+	}
+	weekday := int(parseTime.Weekday())
+	if weekday == 0 {
+		weekday = 7
+	}
+	return parseTime.AddDate(0, 0, -weekday+5)
+}
+
+// Saturday returns a new time.Time value representing the most recent Saturday at the start of the week
+// based on the provided date string(s) or the current date if no date strings are provided.
+//
+// If a date string is provided, it parses the date using the Timex `Parse` method. If no string is provided,
+// the function defaults to the start of the current day. It then determines the weekday of the parsed date.
+// If the weekday is Sunday (represented by 0), it adjusts to be the seventh day for calculation purposes.
+// The function finally subtracts the necessary days to reach the last Saturday.
+//
+// Parameters:
+//   - s ...string: Optional date string(s) to parse; if none are provided, it defaults to today.
+//
+// Returns:
+//   - A `time.Time` value representing the date and time at the start of the last Saturday.
+//
+// Example:
+//
+//	t := Timex{Time: time.Now()}
+//	lastSaturday := t.Saturday() // Returns the start of the most recent Saturday.
+//
+// Note:
+//
+//	If parsing fails, the function will panic with an error.
+func (t *Timex) Saturday(s ...string) time.Time {
+	var parseTime time.Time
+	var err error
+	if len(s) > 0 {
+		parseTime, err = t.Parse(s...)
+		if err != nil {
+			panic(err)
+		}
+	} else {
+		parseTime = t.BeginningOfDay()
+	}
+	weekday := int(parseTime.Weekday())
+	if weekday == 0 {
+		weekday = 7
+	}
+	return parseTime.AddDate(0, 0, -weekday+6)
+}
+
 // Sunday returns a new time.Time value representing the most recent or upcoming Sunday
 // based on the provided date string(s) or the current date if no date strings are provided.
 //
