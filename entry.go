@@ -762,6 +762,101 @@ func Monday(s ...string) time.Time {
 	return With(time.Now()).Monday(s...)
 }
 
+// Tuesday returns the date and time of the most recent or upcoming Tuesday relative to the current time.
+// This function can take an optional string parameter to specify the desired format for the output,
+// but it defaults to the standard representation of time if no arguments are provided.
+//
+// It utilizes the With() function to obtain the current time and then applies the Tuesday()
+// method to determine the appropriate Tuesday date and time.
+//
+// Returns:
+//   - A time.Time value representing the most recent or upcoming Tuesday based on the current date and time.
+//     The output can vary depending on the optional format parameter.
+//
+// Example:
+//
+//	tuesday := Tuesday() // This will return the date and time for the next upcoming Tuesday (e.g., 2023-10-31 00:00:00).
+//	tuesdayFormatted := Tuesday("2006-01-02") // This will return the next Tuesday formatted as "YYYY-MM-DD".
+func Tuesday(s ...string) time.Time {
+	return With(time.Now()).Tuesday(s...)
+}
+
+// Wednesday returns the date and time of the most recent or upcoming Wednesday relative to the current time.
+// This function can take an optional string parameter to specify the desired format for the output,
+// but it defaults to the standard representation of time if no arguments are provided.
+//
+// It utilizes the With() function to obtain the current time and then applies the Wednesday()
+// method to determine the appropriate Wednesday date and time.
+//
+// Returns:
+//   - A time.Time value representing the most recent or upcoming Wednesday based on the current date and time.
+//     The output can vary depending on the optional format parameter.
+//
+// Example:
+//
+//	wednesday := Wednesday() // This will return the date and time for the next upcoming Wednesday (e.g., 2023-11-01 00:00:00).
+//	wednesdayFormatted := Wednesday("2006-01-02") // This will return the next Wednesday formatted as "YYYY-MM-DD".
+func Wednesday(s ...string) time.Time {
+	return With(time.Now()).Wednesday(s...)
+}
+
+// Thursday returns the date and time of the most recent or upcoming Thursday relative to the current time.
+// This function can take an optional string parameter to specify the desired format for the output,
+// but it defaults to the standard representation of time if no arguments are provided.
+//
+// It utilizes the With() function to obtain the current time and then applies the Thursday()
+// method to determine the appropriate Thursday date and time.
+//
+// Returns:
+//   - A time.Time value representing the most recent or upcoming Thursday based on the current date and time.
+//     The output can vary depending on the optional format parameter.
+//
+// Example:
+//
+//	thursday := Thursday() // This will return the date and time for the next upcoming Thursday (e.g., 2023-11-02 00:00:00).
+//	thursdayFormatted := Thursday("2006-01-02") // This will return the next Thursday formatted as "YYYY-MM-DD".
+func Thursday(s ...string) time.Time {
+	return With(time.Now()).Thursday(s...)
+}
+
+// Friday returns the date and time of the most recent or upcoming Friday relative to the current time.
+// This function can take an optional string parameter to specify the desired format for the output,
+// but it defaults to the standard representation of time if no arguments are provided.
+//
+// It utilizes the With() function to obtain the current time and then applies the Friday()
+// method to determine the appropriate Friday date and time.
+//
+// Returns:
+//   - A time.Time value representing the most recent or upcoming Friday based on the current date and time.
+//     The output can vary depending on the optional format parameter.
+//
+// Example:
+//
+//	friday := Friday() // This will return the date and time for the next upcoming Friday (e.g., 2023-11-03 00:00:00).
+//	fridayFormatted := Friday("2006-01-02") // This will return the next Friday formatted as "YYYY-MM-DD".
+func Friday(s ...string) time.Time {
+	return With(time.Now()).Friday(s...)
+}
+
+// Saturday returns the date and time of the most recent or upcoming Saturday relative to the current time.
+// This function can take an optional string parameter to specify the desired format for the output,
+// but it defaults to the standard representation of time if no arguments are provided.
+//
+// It utilizes the With() function to obtain the current time and then applies the Saturday()
+// method to determine the appropriate Saturday date and time.
+//
+// Returns:
+//   - A time.Time value representing the most recent or upcoming Saturday based on the current date and time.
+//     The output can vary depending on the optional format parameter.
+//
+// Example:
+//
+//	friday := Friday() // This will return the date and time for the next upcoming Friday (e.g., 2023-11-03 00:00:00).
+//	fridayFormatted := Friday("2006-01-02") // This will return the next Friday formatted as "YYYY-MM-DD".
+func Saturday(s ...string) time.Time {
+	return With(time.Now()).Saturday(s...)
+}
+
 // Sunday returns the date and time of the most recent or upcoming Sunday relative to the current time.
 // This function can take an optional string parameter to specify the desired format for the output,
 // but it defaults to the standard representation of time if no arguments are provided.
