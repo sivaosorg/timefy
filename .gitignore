@@ -43,3 +43,8 @@ config/conf-local.yaml
 # Main
 main/
 main.go
+
+# Examples (must be explicitly included to override the main.go rule above)
+!_example/
+!_example/**
+!_example/**/*.go
