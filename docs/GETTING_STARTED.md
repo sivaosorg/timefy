@@ -1,7 +1,7 @@
-# timefy — Comprehensive Technical Wiki
+# timefy — Comprehensive Technical Documentation
 
-> **Professor-level reference for Go engineers using the `timefy` library.**
-> This wiki teaches the library from first principles through advanced
+> **Senior-level reference for Go engineers using the `timefy` library.**
+> This documentation teaches the library from first principles through advanced
 > enterprise patterns, with every concept backed by complete, runnable Go code.
 
 ---
@@ -154,10 +154,10 @@ and carries a `*Rule` pointer that governs:
 
 ```bash
 # Specific version
-go get github.com/sivaosorg/timefy@v0.0.1
+go get github.com/sivaosorg/timefy@v0.0.3
 
 # Latest
-go get -u github.com/sivaosorg/timefy@latest
+go get github.com/sivaosorg/timefy@latest
 ```
 
 ```go
@@ -2232,5 +2232,3 @@ cd _example/scheduler && go run main.go
 | `DefaultTimezoneSuva` | `Pacific/Fiji` | +12:00 |
 
 ---
-
-*End of timefy WIKI*
