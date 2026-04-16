@@ -7,7 +7,7 @@
 //
 // Run with:
 //
-//	cd _example/billing && go run main.go
+//	cd examples/billing && go run main.go
 package main
 
 import (

@@ -12,7 +12,7 @@
 //
 // Run with:
 //
-//	cd _example/audit && go run main.go
+//	cd examples/audit && go run main.go
 package main
 
 import (
@@ -35,19 +35,19 @@ const (
 
 // AuditEvent is a single immutable audit record.
 type AuditEvent struct {
-	ID          string
-	OccurredAt  time.Time // stored in UTC, nanosecond precision
-	ActorID     string
-	Action      string
-	Resource    string
-	Severity    Severity
-	Resolved    bool
-	ResolvedAt  time.Time // zero value if unresolved
+	ID         string
+	OccurredAt time.Time // stored in UTC, nanosecond precision
+	ActorID    string
+	Action     string
+	Resource   string
+	Severity   Severity
+	Resolved   bool
+	ResolvedAt time.Time // zero value if unresolved
 }
 
 // HourBucket groups audit events that occurred within the same UTC hour.
 type HourBucket struct {
-	Hour   time.Time    // beginning of the hour (UTC)
+	Hour   time.Time // beginning of the hour (UTC)
 	Events []AuditEvent
 }
 
@@ -59,6 +59,7 @@ type HourBucket struct {
 //   - Using time.Add(72 * time.Hour) is equivalent here, but AddHour reads as
 //     intent-revealing code in an audit context where "hours" is the business
 //     unit mandated by law.
+//
 // ─────────────────────────────────────────────────────────────────────────────
 func gdprBreachDeadline(detectedAt time.Time) time.Time {
 	return timefy.AddHour(detectedAt, 72)
@@ -87,6 +88,7 @@ func isGDPRCompliant(detectedAt, reportedAt time.Time) bool {
 //   - SLAs in enterprise support contracts only count working hours.
 //     A ticket created at 17:00 Friday with a 4-hour SLA should expire at
 //     13:00 Monday, not 21:00 Friday (which would already be closed).
+//
 // ─────────────────────────────────────────────────────────────────────────────
 func slaDeadline(createdAt time.Time, businessHours int) time.Time {
 	cursor := createdAt

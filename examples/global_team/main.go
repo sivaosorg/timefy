@@ -13,7 +13,7 @@
 //
 // Run with:
 //
-//	cd _example/global_team && go run main.go
+//	cd examples/global_team && go run main.go
 package main
 
 import (

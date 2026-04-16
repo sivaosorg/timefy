@@ -11,7 +11,7 @@
 //
 // Run with:
 //
-//	cd _example/reporting && go run main.go
+//	cd examples/reporting && go run main.go
 package main
 
 import (

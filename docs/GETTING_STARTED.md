@@ -1892,10 +1892,10 @@ var startOfEpoch = timefy.MustParse("2020-01-01")
 
 ## 24. Enterprise Use Cases
 
-The `_example/` directory contains five complete, runnable enterprise programs
+The `examples/` directory contains five complete, runnable enterprise programs
 that demonstrate production-grade patterns.
 
-### `_example/billing/` — SaaS Subscription Billing
+### `examples/billing/` — SaaS Subscription Billing
 
 **Business problem:** A multi-tenant SaaS platform bills customers monthly,
 quarterly, and annually.  Customers sign up mid-period and receive pro-rated
@@ -1918,10 +1918,10 @@ charges.  Some plans include a free trial period.
 | `DurationInDays` | Pro-rate day counting |
 
 ```bash
-cd _example/billing && go run main.go
+cd examples/billing && go run main.go
 ```
 
-### `_example/global_team/` — Multi-Timezone Team Coordination
+### `examples/global_team/` — Multi-Timezone Team Coordination
 
 **Business problem:** An engineering organization spans five cities.  The
 platform must find meeting overlap windows, detect business-hour availability,
@@ -1940,10 +1940,10 @@ and generate cross-team working-day schedules that respect public holidays.
 | `New(t).TimeAgo()` / `TimeUntil()` | Release timeline display |
 
 ```bash
-cd _example/global_team && go run main.go
+cd examples/global_team && go run main.go
 ```
 
-### `_example/audit/` — Enterprise Audit Trail & Compliance
+### `examples/audit/` — Enterprise Audit Trail & Compliance
 
 **Business problem:** A financial services platform records all data-access
 events, enforces GDPR Article 33 (72-hour breach notification), detects SLA
@@ -1965,10 +1965,10 @@ breaches for support tickets, and generates CISO reports.
 | `New(t).TimeAgo()` | Human-readable event age |
 
 ```bash
-cd _example/audit && go run main.go
+cd examples/audit && go run main.go
 ```
 
-### `_example/reporting/` — Financial Quarter & Fiscal-Year Reporting
+### `examples/reporting/` — Financial Quarter & Fiscal-Year Reporting
 
 **Business problem:** A publicly-traded company needs precise SEC filing
 windows, YTD periods, QoQ comparisons, and a July-1-start fiscal year
@@ -1991,10 +1991,10 @@ calendar.
 | `New(t).Quarter()` | Quarter number label |
 
 ```bash
-cd _example/reporting && go run main.go
+cd examples/reporting && go run main.go
 ```
 
-### `_example/scheduler/` — Business-Day-Aware Job Scheduler
+### `examples/scheduler/` — Business-Day-Aware Job Scheduler
 
 **Business problem:** A financial data platform schedules ETL jobs on daily,
 monthly, and quarterly boundaries, ensuring jobs fire only on business days and
@@ -2017,7 +2017,7 @@ are not duplicated within a configurable time window.
 | `New(t).TimeAgo()` / `TimeUntil()` | Last-ran / next-run display |
 
 ```bash
-cd _example/scheduler && go run main.go
+cd examples/scheduler && go run main.go
 ```
 
 ---
