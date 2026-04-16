@@ -2,6 +2,7 @@ package timefy
 
 import (
 	"regexp"
+	"sync"
 	"time"
 )
 
@@ -9,8 +10,34 @@ type TimeRFC string
 type TimeFormatRFC string
 type ZoneRFC string
 
-// WeekStartDay set week start day, default is sunday
+// weekStartDay holds the default week start day, protected by weekStartDayMu.
+// Default is Sunday. Use GetWeekStartDay() and SetWeekStartDay() for safe access.
+var (
+	weekStartDay   = time.Sunday
+	weekStartDayMu sync.RWMutex
+)
+
+// WeekStartDay is deprecated and provided for backward compatibility.
+// Use GetWeekStartDay() and SetWeekStartDay() for thread-safe access.
+// Direct assignment to this variable is NOT thread-safe.
+//
+// Deprecated: Use GetWeekStartDay() and SetWeekStartDay() instead.
 var WeekStartDay = time.Sunday
+
+// GetWeekStartDay returns the current default week start day in a thread-safe manner.
+func GetWeekStartDay() time.Weekday {
+	weekStartDayMu.RLock()
+	defer weekStartDayMu.RUnlock()
+	return weekStartDay
+}
+
+// SetWeekStartDay sets the default week start day in a thread-safe manner.
+func SetWeekStartDay(day time.Weekday) {
+	weekStartDayMu.Lock()
+	defer weekStartDayMu.Unlock()
+	weekStartDay = day
+	WeekStartDay = day // Keep backward compatibility
+}
 
 const (
 	// Time in format 15:04:05,

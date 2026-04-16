@@ -375,12 +375,7 @@ func GetWeekdaysInRange(start time.Time, end time.Time) []time.Time {
 	for current := start; current.Before(end) || current.Equal(end); current = current.AddDate(0, 0, 1) {
 		d := current.Weekday()
 		if d != time.Sunday && d != time.Saturday {
-			y := current.Year()
-			if IsLeapYear(y) && current.Month() == time.February && current.Day() == 29 {
-				weekdays = append(weekdays, current)
-			} else if !IsLeapYear(y) && current.Day() <= time.Date(y, time.December, 31, 0, 0, 0, 0, time.UTC).Day() {
-				weekdays = append(weekdays, current)
-			}
+			weekdays = append(weekdays, current)
 		}
 	}
 	return weekdays

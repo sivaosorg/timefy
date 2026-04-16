@@ -5,6 +5,33 @@ import (
 	"time"
 )
 
+// getWeekStartDay returns the week start day for this Timex instance.
+// If Rule is nil, it returns the global default using GetWeekStartDay().
+func (t *Timex) getWeekStartDay() time.Weekday {
+	if t.Rule == nil {
+		return GetWeekStartDay()
+	}
+	return t.weekStartDay
+}
+
+// getTimeFormats returns the time formats for this Timex instance.
+// If Rule is nil, it returns the global TimeFormats.
+func (t *Timex) getTimeFormats() []string {
+	if t.Rule == nil {
+		return TimeFormats
+	}
+	return t.timeFormats
+}
+
+// getTimeLocation returns the time location for this Timex instance.
+// If Rule is nil or timeLocation is nil, it returns nil (which will use local).
+func (t *Timex) getTimeLocation() *time.Location {
+	if t.Rule == nil {
+		return nil
+	}
+	return t.timeLocation
+}
+
 // With wraps the provided time value `v` into a Timex object, applying the default configuration.
 //
 // The function first checks if the global `DefaultConfig` is set. If it is not, it initializes a new
@@ -220,8 +247,9 @@ func (t *Timex) BeginningOfDay() time.Time {
 func (t *Timex) BeginningOfWeek() time.Time {
 	day := t.BeginningOfDay()
 	weekday := int(day.Weekday())
-	if t.weekStartDay != time.Sunday {
-		weekStartDayInt := int(t.weekStartDay)
+	startDay := t.getWeekStartDay()
+	if startDay != time.Sunday {
+		weekStartDayInt := int(startDay)
 		if weekday < weekStartDayInt {
 			weekday = weekday + 7 - weekStartDayInt
 		} else {
@@ -777,6 +805,202 @@ func (t *Timex) Quarter() uint {
 	return (uint(t.Month())-1)/3 + 1
 }
 
+// MondaySafe returns a new time.Time value representing the most recent Monday at the start of the week
+// based on the provided date string(s) or the current date if no date strings are provided.
+// Unlike Monday(), this method returns an error instead of panicking on parse failures.
+//
+// Parameters:
+//   - s ...string: Optional date string(s) to parse; if none are provided, it defaults to today.
+//
+// Returns:
+//   - A `time.Time` value representing the date and time at the start of the last Monday.
+//   - An error if parsing fails.
+func (t *Timex) MondaySafe(s ...string) (time.Time, error) {
+	var parseTime time.Time
+	var err error
+	if len(s) > 0 {
+		parseTime, err = t.Parse(s...)
+		if err != nil {
+			return time.Time{}, fmt.Errorf("timefy: failed to parse date for Monday: %w", err)
+		}
+	} else {
+		parseTime = t.BeginningOfDay()
+	}
+	weekday := int(parseTime.Weekday())
+	if weekday == 0 {
+		weekday = 7
+	}
+	return parseTime.AddDate(0, 0, -weekday+1), nil
+}
+
+// TuesdaySafe returns a new time.Time value representing the most recent Tuesday at the start of the week
+// based on the provided date string(s) or the current date if no date strings are provided.
+// Unlike Tuesday(), this method returns an error instead of panicking on parse failures.
+//
+// Parameters:
+//   - s ...string: Optional date string(s) to parse; if none are provided, it defaults to today.
+//
+// Returns:
+//   - A `time.Time` value representing the date and time at the start of the last Tuesday.
+//   - An error if parsing fails.
+func (t *Timex) TuesdaySafe(s ...string) (time.Time, error) {
+	var parseTime time.Time
+	var err error
+	if len(s) > 0 {
+		parseTime, err = t.Parse(s...)
+		if err != nil {
+			return time.Time{}, fmt.Errorf("timefy: failed to parse date for Tuesday: %w", err)
+		}
+	} else {
+		parseTime = t.BeginningOfDay()
+	}
+	weekday := int(parseTime.Weekday())
+	if weekday == 0 {
+		weekday = 7
+	}
+	return parseTime.AddDate(0, 0, -weekday+2), nil
+}
+
+// WednesdaySafe returns a new time.Time value representing the most recent Wednesday at the start of the week
+// based on the provided date string(s) or the current date if no date strings are provided.
+// Unlike Wednesday(), this method returns an error instead of panicking on parse failures.
+//
+// Parameters:
+//   - s ...string: Optional date string(s) to parse; if none are provided, it defaults to today.
+//
+// Returns:
+//   - A `time.Time` value representing the date and time at the start of the last Wednesday.
+//   - An error if parsing fails.
+func (t *Timex) WednesdaySafe(s ...string) (time.Time, error) {
+	var parseTime time.Time
+	var err error
+	if len(s) > 0 {
+		parseTime, err = t.Parse(s...)
+		if err != nil {
+			return time.Time{}, fmt.Errorf("timefy: failed to parse date for Wednesday: %w", err)
+		}
+	} else {
+		parseTime = t.BeginningOfDay()
+	}
+	weekday := int(parseTime.Weekday())
+	if weekday == 0 {
+		weekday = 7
+	}
+	return parseTime.AddDate(0, 0, -weekday+3), nil
+}
+
+// ThursdaySafe returns a new time.Time value representing the most recent Thursday at the start of the week
+// based on the provided date string(s) or the current date if no date strings are provided.
+// Unlike Thursday(), this method returns an error instead of panicking on parse failures.
+//
+// Parameters:
+//   - s ...string: Optional date string(s) to parse; if none are provided, it defaults to today.
+//
+// Returns:
+//   - A `time.Time` value representing the date and time at the start of the last Thursday.
+//   - An error if parsing fails.
+func (t *Timex) ThursdaySafe(s ...string) (time.Time, error) {
+	var parseTime time.Time
+	var err error
+	if len(s) > 0 {
+		parseTime, err = t.Parse(s...)
+		if err != nil {
+			return time.Time{}, fmt.Errorf("timefy: failed to parse date for Thursday: %w", err)
+		}
+	} else {
+		parseTime = t.BeginningOfDay()
+	}
+	weekday := int(parseTime.Weekday())
+	if weekday == 0 {
+		weekday = 7
+	}
+	return parseTime.AddDate(0, 0, -weekday+4), nil
+}
+
+// FridaySafe returns a new time.Time value representing the most recent Friday at the start of the week
+// based on the provided date string(s) or the current date if no date strings are provided.
+// Unlike Friday(), this method returns an error instead of panicking on parse failures.
+//
+// Parameters:
+//   - s ...string: Optional date string(s) to parse; if none are provided, it defaults to today.
+//
+// Returns:
+//   - A `time.Time` value representing the date and time at the start of the last Friday.
+//   - An error if parsing fails.
+func (t *Timex) FridaySafe(s ...string) (time.Time, error) {
+	var parseTime time.Time
+	var err error
+	if len(s) > 0 {
+		parseTime, err = t.Parse(s...)
+		if err != nil {
+			return time.Time{}, fmt.Errorf("timefy: failed to parse date for Friday: %w", err)
+		}
+	} else {
+		parseTime = t.BeginningOfDay()
+	}
+	weekday := int(parseTime.Weekday())
+	if weekday == 0 {
+		weekday = 7
+	}
+	return parseTime.AddDate(0, 0, -weekday+5), nil
+}
+
+// SaturdaySafe returns a new time.Time value representing the most recent Saturday at the start of the week
+// based on the provided date string(s) or the current date if no date strings are provided.
+// Unlike Saturday(), this method returns an error instead of panicking on parse failures.
+//
+// Parameters:
+//   - s ...string: Optional date string(s) to parse; if none are provided, it defaults to today.
+//
+// Returns:
+//   - A `time.Time` value representing the date and time at the start of the last Saturday.
+//   - An error if parsing fails.
+func (t *Timex) SaturdaySafe(s ...string) (time.Time, error) {
+	var parseTime time.Time
+	var err error
+	if len(s) > 0 {
+		parseTime, err = t.Parse(s...)
+		if err != nil {
+			return time.Time{}, fmt.Errorf("timefy: failed to parse date for Saturday: %w", err)
+		}
+	} else {
+		parseTime = t.BeginningOfDay()
+	}
+	weekday := int(parseTime.Weekday())
+	if weekday == 0 {
+		weekday = 7
+	}
+	return parseTime.AddDate(0, 0, -weekday+6), nil
+}
+
+// SundaySafe returns a new time.Time value representing the most recent or upcoming Sunday
+// based on the provided date string(s) or the current date if no date strings are provided.
+// Unlike Sunday(), this method returns an error instead of panicking on parse failures.
+//
+// Parameters:
+//   - s ...string: Optional date string(s) to parse; if none are provided, it defaults to today.
+//
+// Returns:
+//   - A `time.Time` value representing the date and time at the start of the most recent or upcoming Sunday.
+//   - An error if parsing fails.
+func (t *Timex) SundaySafe(s ...string) (time.Time, error) {
+	var parseTime time.Time
+	var err error
+	if len(s) > 0 {
+		parseTime, err = t.Parse(s...)
+		if err != nil {
+			return time.Time{}, fmt.Errorf("timefy: failed to parse date for Sunday: %w", err)
+		}
+	} else {
+		parseTime = t.BeginningOfDay()
+	}
+	weekday := int(parseTime.Weekday())
+	if weekday == 0 {
+		weekday = 7
+	}
+	return parseTime.AddDate(0, 0, (7 - weekday)), nil
+}
+
 // Parse interprets the provided date string(s) and converts them into a time.Time value.
 // It attempts to parse each string according to the configured formats, adjusting for the current time
 // and location as necessary.
@@ -1238,13 +1462,18 @@ func (t *Timex) IsFuture() bool {
 // Note:
 //   - The function will return the first successfully parsed time value and ignore any subsequent formats.
 func (t *Timex) parseWithFormat(s string, location *time.Location) (v time.Time, err error) {
-	for _, format := range t.timeFormats {
+	formats := t.getTimeFormats()
+	if len(formats) == 0 {
+		err = fmt.Errorf("timefy: no time formats configured for parsing %q", s)
+		return
+	}
+	for _, format := range formats {
 		v, err = time.ParseInLocation(format, s, location)
 
 		if err == nil {
 			return
 		}
 	}
-	err = fmt.Errorf("can't parse string as time: %v", s)
+	err = fmt.Errorf("timefy: can't parse string as time: %q", s)
 	return
 }

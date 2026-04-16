@@ -16,7 +16,7 @@ import "time"
 //	return rule
 func NewRule() *Rule {
 	return &Rule{
-		weekStartDay: WeekStartDay,
+		weekStartDay: GetWeekStartDay(),
 		timeFormats:  TimeFormats,
 	}
 }
