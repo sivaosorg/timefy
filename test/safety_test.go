@@ -68,10 +68,20 @@ func TestWeekStartDayConcurrency(t *testing.T) {
 // TestSafeWeekdayMethods tests the safe weekday methods that return errors
 // instead of panicking.
 func TestSafeWeekdayMethods(t *testing.T) {
+	// Oct 25, 2023 is a Wednesday (weekday 3)
 	now := time.Date(2023, 10, 25, 12, 0, 0, 0, time.UTC) // Wednesday
 	tmx := timefy.New(now)
 
-	// Test valid parsing
+	// The weekday methods calculate the target day in the current "week window"
+	// using the formula: parseTime.AddDate(0, 0, -weekday+offset)
+	// For Oct 25 (Wed, weekday=3):
+	// - Monday (offset=1): -3+1 = -2 → Oct 23
+	// - Tuesday (offset=2): -3+2 = -1 → Oct 24
+	// - Wednesday (offset=3): -3+3 = 0 → Oct 25
+	// - Thursday (offset=4): -3+4 = +1 → Oct 26
+	// - Friday (offset=5): -3+5 = +2 → Oct 27
+	// - Saturday (offset=6): -3+6 = +3 → Oct 28
+	// - Sunday uses (7-weekday) = 7-3 = +4 → Oct 29
 	tests := []struct {
 		name       string
 		method     func(...string) (time.Time, error)
@@ -82,10 +92,10 @@ func TestSafeWeekdayMethods(t *testing.T) {
 		{"MondaySafe", tmx.MondaySafe, time.Monday, time.October, 23},
 		{"TuesdaySafe", tmx.TuesdaySafe, time.Tuesday, time.October, 24},
 		{"WednesdaySafe", tmx.WednesdaySafe, time.Wednesday, time.October, 25},
-		{"ThursdaySafe", tmx.ThursdaySafe, time.Thursday, time.October, 19}, // Previous Thursday
-		{"FridaySafe", tmx.FridaySafe, time.Friday, time.October, 20},
-		{"SaturdaySafe", tmx.SaturdaySafe, time.Saturday, time.October, 21},
-		{"SundaySafe", tmx.SundaySafe, time.Sunday, time.October, 29}, // Next Sunday
+		{"ThursdaySafe", tmx.ThursdaySafe, time.Thursday, time.October, 26},
+		{"FridaySafe", tmx.FridaySafe, time.Friday, time.October, 27},
+		{"SaturdaySafe", tmx.SaturdaySafe, time.Saturday, time.October, 28},
+		{"SundaySafe", tmx.SundaySafe, time.Sunday, time.October, 29},
 	}
 
 	for _, tt := range tests {
@@ -97,6 +107,12 @@ func TestSafeWeekdayMethods(t *testing.T) {
 			}
 			if got.Weekday() != tt.wantDay {
 				t.Errorf("%s() weekday = %v; want %v", tt.name, got.Weekday(), tt.wantDay)
+			}
+			if got.Month() != tt.wantMonth {
+				t.Errorf("%s() month = %v; want %v", tt.name, got.Month(), tt.wantMonth)
+			}
+			if got.Day() != tt.wantDayNum {
+				t.Errorf("%s() day = %v; want %v", tt.name, got.Day(), tt.wantDayNum)
 			}
 		})
 	}

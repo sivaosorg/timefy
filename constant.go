@@ -18,10 +18,14 @@ var (
 )
 
 // WeekStartDay is deprecated and provided for backward compatibility.
-// Use GetWeekStartDay() and SetWeekStartDay() for thread-safe access.
-// Direct assignment to this variable is NOT thread-safe.
 //
-// Deprecated: Use GetWeekStartDay() and SetWeekStartDay() instead.
+// WARNING: Direct access to this variable is NOT thread-safe in concurrent code.
+// For thread-safe access, use GetWeekStartDay() and SetWeekStartDay() instead.
+//
+// Note: This variable is updated by SetWeekStartDay() for backward compatibility,
+// but direct reads may race with concurrent SetWeekStartDay() calls.
+//
+// Deprecated: Use GetWeekStartDay() and SetWeekStartDay() for thread-safe access.
 var WeekStartDay = time.Sunday
 
 // GetWeekStartDay returns the current default week start day in a thread-safe manner.
@@ -32,11 +36,18 @@ func GetWeekStartDay() time.Weekday {
 }
 
 // SetWeekStartDay sets the default week start day in a thread-safe manner.
+//
+// Note: This function also updates the deprecated WeekStartDay variable for
+// backward compatibility. However, direct reads from WeekStartDay are not
+// protected by the mutex. Use GetWeekStartDay() for thread-safe reads.
 func SetWeekStartDay(day time.Weekday) {
 	weekStartDayMu.Lock()
 	defer weekStartDayMu.Unlock()
 	weekStartDay = day
-	WeekStartDay = day // Keep backward compatibility
+	// Update deprecated variable for backward compatibility.
+	// This is intentionally done within the mutex to maintain consistency,
+	// though direct reads of WeekStartDay are still not thread-safe.
+	WeekStartDay = day
 }
 
 const (

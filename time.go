@@ -805,6 +805,27 @@ func (t *Timex) Quarter() uint {
 	return (uint(t.Month())-1)/3 + 1
 }
 
+// weekdaySafe is a helper function that calculates the time for a specific weekday.
+// It handles parsing and weekday normalization logic used by all *Safe weekday methods.
+// The offset parameter specifies the target weekday where Monday=1, Tuesday=2, ..., Sunday=7.
+func (t *Timex) weekdaySafe(dayName string, offset int, s ...string) (time.Time, error) {
+	var parseTime time.Time
+	var err error
+	if len(s) > 0 {
+		parseTime, err = t.Parse(s...)
+		if err != nil {
+			return time.Time{}, fmt.Errorf("timefy: failed to parse date for %s: %w", dayName, err)
+		}
+	} else {
+		parseTime = t.BeginningOfDay()
+	}
+	weekday := int(parseTime.Weekday())
+	if weekday == 0 {
+		weekday = 7
+	}
+	return parseTime.AddDate(0, 0, -weekday+offset), nil
+}
+
 // MondaySafe returns a new time.Time value representing the most recent Monday at the start of the week
 // based on the provided date string(s) or the current date if no date strings are provided.
 // Unlike Monday(), this method returns an error instead of panicking on parse failures.
@@ -816,21 +837,7 @@ func (t *Timex) Quarter() uint {
 //   - A `time.Time` value representing the date and time at the start of the last Monday.
 //   - An error if parsing fails.
 func (t *Timex) MondaySafe(s ...string) (time.Time, error) {
-	var parseTime time.Time
-	var err error
-	if len(s) > 0 {
-		parseTime, err = t.Parse(s...)
-		if err != nil {
-			return time.Time{}, fmt.Errorf("timefy: failed to parse date for Monday: %w", err)
-		}
-	} else {
-		parseTime = t.BeginningOfDay()
-	}
-	weekday := int(parseTime.Weekday())
-	if weekday == 0 {
-		weekday = 7
-	}
-	return parseTime.AddDate(0, 0, -weekday+1), nil
+	return t.weekdaySafe("Monday", 1, s...)
 }
 
 // TuesdaySafe returns a new time.Time value representing the most recent Tuesday at the start of the week
@@ -844,21 +851,7 @@ func (t *Timex) MondaySafe(s ...string) (time.Time, error) {
 //   - A `time.Time` value representing the date and time at the start of the last Tuesday.
 //   - An error if parsing fails.
 func (t *Timex) TuesdaySafe(s ...string) (time.Time, error) {
-	var parseTime time.Time
-	var err error
-	if len(s) > 0 {
-		parseTime, err = t.Parse(s...)
-		if err != nil {
-			return time.Time{}, fmt.Errorf("timefy: failed to parse date for Tuesday: %w", err)
-		}
-	} else {
-		parseTime = t.BeginningOfDay()
-	}
-	weekday := int(parseTime.Weekday())
-	if weekday == 0 {
-		weekday = 7
-	}
-	return parseTime.AddDate(0, 0, -weekday+2), nil
+	return t.weekdaySafe("Tuesday", 2, s...)
 }
 
 // WednesdaySafe returns a new time.Time value representing the most recent Wednesday at the start of the week
@@ -872,21 +865,7 @@ func (t *Timex) TuesdaySafe(s ...string) (time.Time, error) {
 //   - A `time.Time` value representing the date and time at the start of the last Wednesday.
 //   - An error if parsing fails.
 func (t *Timex) WednesdaySafe(s ...string) (time.Time, error) {
-	var parseTime time.Time
-	var err error
-	if len(s) > 0 {
-		parseTime, err = t.Parse(s...)
-		if err != nil {
-			return time.Time{}, fmt.Errorf("timefy: failed to parse date for Wednesday: %w", err)
-		}
-	} else {
-		parseTime = t.BeginningOfDay()
-	}
-	weekday := int(parseTime.Weekday())
-	if weekday == 0 {
-		weekday = 7
-	}
-	return parseTime.AddDate(0, 0, -weekday+3), nil
+	return t.weekdaySafe("Wednesday", 3, s...)
 }
 
 // ThursdaySafe returns a new time.Time value representing the most recent Thursday at the start of the week
@@ -900,21 +879,7 @@ func (t *Timex) WednesdaySafe(s ...string) (time.Time, error) {
 //   - A `time.Time` value representing the date and time at the start of the last Thursday.
 //   - An error if parsing fails.
 func (t *Timex) ThursdaySafe(s ...string) (time.Time, error) {
-	var parseTime time.Time
-	var err error
-	if len(s) > 0 {
-		parseTime, err = t.Parse(s...)
-		if err != nil {
-			return time.Time{}, fmt.Errorf("timefy: failed to parse date for Thursday: %w", err)
-		}
-	} else {
-		parseTime = t.BeginningOfDay()
-	}
-	weekday := int(parseTime.Weekday())
-	if weekday == 0 {
-		weekday = 7
-	}
-	return parseTime.AddDate(0, 0, -weekday+4), nil
+	return t.weekdaySafe("Thursday", 4, s...)
 }
 
 // FridaySafe returns a new time.Time value representing the most recent Friday at the start of the week
@@ -928,21 +893,7 @@ func (t *Timex) ThursdaySafe(s ...string) (time.Time, error) {
 //   - A `time.Time` value representing the date and time at the start of the last Friday.
 //   - An error if parsing fails.
 func (t *Timex) FridaySafe(s ...string) (time.Time, error) {
-	var parseTime time.Time
-	var err error
-	if len(s) > 0 {
-		parseTime, err = t.Parse(s...)
-		if err != nil {
-			return time.Time{}, fmt.Errorf("timefy: failed to parse date for Friday: %w", err)
-		}
-	} else {
-		parseTime = t.BeginningOfDay()
-	}
-	weekday := int(parseTime.Weekday())
-	if weekday == 0 {
-		weekday = 7
-	}
-	return parseTime.AddDate(0, 0, -weekday+5), nil
+	return t.weekdaySafe("Friday", 5, s...)
 }
 
 // SaturdaySafe returns a new time.Time value representing the most recent Saturday at the start of the week
@@ -956,21 +907,7 @@ func (t *Timex) FridaySafe(s ...string) (time.Time, error) {
 //   - A `time.Time` value representing the date and time at the start of the last Saturday.
 //   - An error if parsing fails.
 func (t *Timex) SaturdaySafe(s ...string) (time.Time, error) {
-	var parseTime time.Time
-	var err error
-	if len(s) > 0 {
-		parseTime, err = t.Parse(s...)
-		if err != nil {
-			return time.Time{}, fmt.Errorf("timefy: failed to parse date for Saturday: %w", err)
-		}
-	} else {
-		parseTime = t.BeginningOfDay()
-	}
-	weekday := int(parseTime.Weekday())
-	if weekday == 0 {
-		weekday = 7
-	}
-	return parseTime.AddDate(0, 0, -weekday+6), nil
+	return t.weekdaySafe("Saturday", 6, s...)
 }
 
 // SundaySafe returns a new time.Time value representing the most recent or upcoming Sunday
