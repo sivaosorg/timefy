@@ -910,15 +910,19 @@ func (t *Timex) SaturdaySafe(s ...string) (time.Time, error) {
 	return t.weekdaySafe("Saturday", 6, s...)
 }
 
-// SundaySafe returns a new time.Time value representing the most recent or upcoming Sunday
+// SundaySafe returns a new time.Time value representing the upcoming Sunday
 // based on the provided date string(s) or the current date if no date strings are provided.
 // Unlike Sunday(), this method returns an error instead of panicking on parse failures.
+//
+// Note: This method uses the same algorithm as the other weekday methods but with an offset
+// calculation that always returns a future Sunday (or today if it's already Sunday at midnight).
+// If the current day is Sunday, it returns the next Sunday (7 days later).
 //
 // Parameters:
 //   - s ...string: Optional date string(s) to parse; if none are provided, it defaults to today.
 //
 // Returns:
-//   - A `time.Time` value representing the date and time at the start of the most recent or upcoming Sunday.
+//   - A `time.Time` value representing the date and time at the start of the upcoming Sunday.
 //   - An error if parsing fails.
 func (t *Timex) SundaySafe(s ...string) (time.Time, error) {
 	var parseTime time.Time
@@ -1401,7 +1405,7 @@ func (t *Timex) IsFuture() bool {
 func (t *Timex) parseWithFormat(s string, location *time.Location) (v time.Time, err error) {
 	formats := t.getTimeFormats()
 	if len(formats) == 0 {
-		err = fmt.Errorf("timefy: no time formats configured for parsing %q", s)
+		err = fmt.Errorf("timefy: no time formats configured for parsing %q; ensure Timex is created via With() or NewRule().With()", s)
 		return
 	}
 	for _, format := range formats {
