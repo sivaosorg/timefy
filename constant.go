@@ -6,10 +6,6 @@ import (
 	"time"
 )
 
-type TimeRFC string
-type TimeFormatRFC string
-type ZoneRFC string
-
 // weekStartDay holds the default week start day, protected by weekStartDayMu.
 // Default is Sunday. Use GetWeekStartDay() and SetWeekStartDay() for safe access.
 var (
@@ -27,28 +23,6 @@ var (
 //
 // Deprecated: Use GetWeekStartDay() and SetWeekStartDay() for thread-safe access.
 var WeekStartDay = time.Sunday
-
-// GetWeekStartDay returns the current default week start day in a thread-safe manner.
-func GetWeekStartDay() time.Weekday {
-	weekStartDayMu.RLock()
-	defer weekStartDayMu.RUnlock()
-	return weekStartDay
-}
-
-// SetWeekStartDay sets the default week start day in a thread-safe manner.
-//
-// Note: This function also updates the deprecated WeekStartDay variable for
-// backward compatibility. However, direct reads from WeekStartDay are not
-// protected by the mutex. Use GetWeekStartDay() for thread-safe reads.
-func SetWeekStartDay(day time.Weekday) {
-	weekStartDayMu.Lock()
-	defer weekStartDayMu.Unlock()
-	weekStartDay = day
-	// Update deprecated variable for backward compatibility.
-	// This is intentionally done within the mutex to maintain consistency,
-	// though direct reads of WeekStartDay are still not thread-safe.
-	WeekStartDay = day
-}
 
 const (
 	// Time in format 15:04:05,

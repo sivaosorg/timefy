@@ -2,6 +2,28 @@ package timefy
 
 import "time"
 
+// GetWeekStartDay returns the current default week start day in a thread-safe manner.
+func GetWeekStartDay() time.Weekday {
+	weekStartDayMu.RLock()
+	defer weekStartDayMu.RUnlock()
+	return weekStartDay
+}
+
+// SetWeekStartDay sets the default week start day in a thread-safe manner.
+//
+// Note: This function also updates the deprecated WeekStartDay variable for
+// backward compatibility. However, direct reads from WeekStartDay are not
+// protected by the mutex. Use GetWeekStartDay() for thread-safe reads.
+func SetWeekStartDay(day time.Weekday) {
+	weekStartDayMu.Lock()
+	defer weekStartDayMu.Unlock()
+	weekStartDay = day
+	// Update deprecated variable for backward compatibility.
+	// This is intentionally done within the mutex to maintain consistency,
+	// though direct reads of WeekStartDay are still not thread-safe.
+	WeekStartDay = day
+}
+
 // BeginOfDay takes a time value `v` and returns a new time.Time object
 // representing the beginning of the day for that date.
 //

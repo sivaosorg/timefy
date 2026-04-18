@@ -2,6 +2,10 @@ package timefy
 
 import "time"
 
+type TimeRFC string
+type TimeFormatRFC string
+type ZoneRFC string
+
 // Rule rule for timefy
 // weekStartDay set week start day, default is sunday
 // timeLocation set time location, default is local
@@ -12,7 +16,6 @@ type Rule struct {
 	timeFormats  []string
 }
 
-// Timex struct
 type Timex struct {
 	time.Time
 	*Rule
