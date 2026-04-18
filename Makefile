@@ -1,4 +1,4 @@
-.PHONY: dev run build build-cli test tidy deps-upgrade deps-clean-cache lint race bench cover render-examples icons-validate assets-check tree fmt fmt-check clean
+.PHONY: dev run build build-cli test tidy deps-upgrade deps-clean-cache lint race bench cover tree fmt fmt-check clean
 
 LOG_DIR  := logs
 BIN_NAME := timefy
@@ -81,20 +81,6 @@ cover:
 	@mkdir -p $(LOG_DIR)
 	go test -coverprofile=./$(LOG_DIR)/coverage.out ./...
 	go tool cover -html=./$(LOG_DIR)/coverage.out -o ./$(LOG_DIR)/coverage.html
-
-# ==============================================================================
-# Examples and icon management
-# Runs the basic example to verify rendering works.
-render-examples:
-	go run ./examples/basic
-
-# Validates icon files in the assets directory.
-icons-validate:
-	./$(BIN_OUT) icons validate --dir assets
-
-# Runs the asset validation tool to audit all icon files.
-assets-check:
-	go run ./cmd/assetcheck --dir assets
 
 # ==============================================================================
 # Formatting
